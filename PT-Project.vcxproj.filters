@@ -154,15 +154,6 @@
     <ClCompile Include="Cell.cpp">
       <Filter>Grid</Filter>
     </ClCompile>
-    <ClCompile Include="CellPosition.cpp">
-      <Filter>GUIClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>GUIClasses</Filter>
-    </ClCompile>
-    <ClCompile Include="Output.cpp">
-      <Filter>GUIClasses</Filter>
-    </ClCompile>
     <ClCompile Include="Flag.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
@@ -192,6 +183,15 @@
     </ClCompile>
     <ClCompile Include="AddRotatingGearAction.cpp">
       <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="CellPosition.cpp">
+      <Filter>GUIClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>GUIClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Output.cpp">
+      <Filter>GUIClasses</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -270,19 +270,6 @@
     <ClInclude Include="Grid.h">
       <Filter>Grid</Filter>
     </ClInclude>
-    <ClInclude Include="CellPosition.h">
-      <Filter>GUIClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>GUIClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="Output.h">
-      <Filter>GUIClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="UI_Info.h">
-      <Filter>GUIClasses</Filter>
-    </ClInclude>
-    <ClInclude Include="DEFS.h" />
     <ClInclude Include="Cell.h">
       <Filter>Grid</Filter>
     </ClInclude>
@@ -316,5 +303,18 @@
     <ClInclude Include="AddRotatingGearAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
+    <ClInclude Include="CellPosition.h">
+      <Filter>GUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>GUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Output.h">
+      <Filter>GUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Info.h">
+      <Filter>GUIClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="DEFS.h" />
   </ItemGroup>
 </Project>

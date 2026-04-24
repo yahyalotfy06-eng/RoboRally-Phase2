@@ -1,5 +1,5 @@
 #include "Input.h"
-
+#include "DEFS.h"
 #include "Output.h"
 
 //======================================================================================//
@@ -45,15 +45,24 @@ string Input::GetSrting(Output *pO) const
 int Input::GetInteger(Output *pO) const 
 {
 
-	///TODO: implement the GetInteger function as described in Input.h file 
 	//       using function GetString() defined above and function stoi()
-	
 
+	string inputString = GetSrting(pO);
+	int value = 0;
 
+	if (inputString.empty())
+		return 0;
 
+	try {
+		value = stoi(inputString);
+	}
+	catch (...) {
+		return 0; // Safe fallback for non-integer inputs
+	}
+	return value;
 	// Note: stoi(s) converts string s into its equivalent integer (for example, "55" is converted to 55)
 
-	return 0; // this line should be changed with your implementation
+	//return 0; // this line should be changed with your implementation
 }
 
 //======================================================================================//
@@ -69,33 +78,44 @@ ActionType Input::GetUserAction() const
 	if ( UI.InterfaceMode == MODE_DESIGN )	
 	{
 		// [1] If user clicks on the Toolbar
-		if ( y >= 0 && y < UI.ToolBarHeight)
+		if ( y > 0 && y < UI.ToolBarHeight)
 		{	
 			// Check which Menu item was clicked
 			// ==> This assumes that menu items are lined up horizontally <==
 
-			int ClickedItemOrder = (x / UI.MenuItemWidth);
+			int clickedItemOrder = (x / UI.MenuItemWidth);
 
 			// Divide x coord of the point clicked by the menu item width (integer division)
 			// If division result is 0 ==> first item is clicked, if 1 ==> 2nd item and so on
 
-			switch (ClickedItemOrder)
+			switch (clickedItemOrder)
 			{
-			
+			//case ITM_SET_FLAG_CELL: return SET_FLAG_CELL;
+			//case ITM_EXIT: return EXIT;
+			//case ITM_SWITCH_TO_PLAY_MODE: return TO_PLAY_MODE;			
+
+			case ITM_SET_FLAG_CELL: return SET_FLAG_CELL;
+			case ITM_ADD_ANTENNA: return ADD_ANTENNA;
+			case ITM_ADD_BELT: return ADD_BELT;
+			case ITM_ADD_WATER_PIT: return ADD_WATER_PIT;
+			case ITM_ADD_DANGER_ZONE: return ADD_DANGER_ZONE;
+			case ITM_ADD_WORKSHOP: return ADD_WORKSHOP;
+			case ITM_ADD_ROTATING_GEAR: return ADD_ROTATING_GEAR;
+			case ITM_COPY: return COPY_NODE;
+			case ITM_CUT: return CUT_NODE;
+			case ITM_PASTE: return PASTE_NODE;
+			case ITM_DELETE: return DELETE_NODE;
+			case ITM_SAVE: return SAVE_GRID;
+			case ITM_LOAD: return LOAD_GRID;
+			case ITM_SWITCH_TO_PLAY_MODE: return TO_PLAY_MODE;
 			case ITM_EXIT: return EXIT;
-			case ITM_SWITCH_TO_PLAY_MODE: return TO_PLAY_MODE;			
-
-				///TODO: Add cases for the other items of Design Mode
-
-
-
-
+	
 			default: return EMPTY;	// A click on empty place in toolbar
 			}
 		}
 
 		// [2] User clicks on the grid area
-		if ( (y >= UI.ToolBarHeight) && (y < UI.height - UI.StatusBarHeight))
+		if ( (y >= UI.ToolBarHeight) && (y < UI.height - UI.StatusBarHeight - UI.CommandsBarHeight))
 		{
 			return GRID_AREA;	
 		}
@@ -107,18 +127,44 @@ ActionType Input::GetUserAction() const
 	// ============ GUI in the Play mode ============
 	else	
 	{
-		///TODO:
 		// perform checks similar to Design mode checks above for the Play Mode
 		// and return the corresponding ActionType
 
-		return TO_DESIGN_MODE;	// just for now ==> This should be updated
+		if (y > 0 && y < UI.ToolBarHeight)
+		{
+			int clickedItemOrder = (x / UI.MenuItemWidth);
+			switch (clickedItemOrder)
+			{
+				case ITM_SET_TURN: return SET_TURN;
+				case ITM_EXECUTE_COMMANDS: return EXECUTE_COMMANDS;
+				case ITM_SELECT_COMMAND: return SELECT_COMMAND;
+				case ITM_REBOOT_REPAIR: return REBOOT_REPAIR;
+				case ITM_NEW_GAME: return NEW_GAME;
+				case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;
+				case ITM_EXIT_PLAY: return EXIT;
+				default: return EMPTY;
+
+
+			}
+		}
+
+		//return EMPTY;	// just for now ==> This should be updated //updated
+		// [2] User clicks on the grid area
+		if ((y >= UI.ToolBarHeight) && (y < UI.height - UI.StatusBarHeight - UI.CommandsBarHeight))
+		{
+			return GRID_AREA;
+		}
+
+		// [3] User clicks on the status bar
+		return STATUS;
+	}
 
 
 
 
 	}	
 
-}
+
 
 ////////////////////////////////////////////////////////////////////////////////////////// 
 
@@ -127,37 +173,36 @@ CellPosition Input::GetCellClicked() const
 	int x,y;
 	pWind->WaitMouseClick(x, y);	// Get the coordinates of the user click
 
-	CellPosition cellPos;
+	CellPosition cellPos(-1,-1);
 
-	if ( UI.InterfaceMode == MODE_DESIGN )	
+	if ( y >= UI.ToolBarHeight && y < (UI.height - UI.StatusBarHeight - UI.CommandsBarHeight))
 	{
-		if ( y >= UI.ToolBarHeight && y <= (UI.height - UI.StatusBarHeight))
-		{
-			///TODO: SetHCell and SetVCell of the object cellPost appropriately
-			//       using the coordinates x, y and the appropriate variables of the UI_Info Object (UI)
-			
+		//       using the coordinates x, y and the appropriate variables of the UI_Info Object (UI)
+		int vCell = (y - UI.ToolBarHeight) / UI.CellHeight;
+		int hCell = x / UI.CellWidth;
 
+		cellPos.SetVCell(vCell);
+		cellPos.SetHCell(hCell);
 
-		}
 	}
 
 	return cellPos;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////// 
-
+//////////////////////////////////////////////////////////////////////////////////////////
 
 int Input::GetSelectedCommandIndex() const
 {
 	int x = -1, y = -1;
 	GetPointClicked(x, y);
 
-	if ((y >= UI.height - UI.StatusBarHeight - UI.CommandsBarHeight - UI.AvailableCommandsYOffset) && (y < UI.height - UI.StatusBarHeight))
+	if ((y >= UI.height - UI.StatusBarHeight - UI.CommandsBarHeight + UI.AvailableCommandsYOffset) && (y < UI.height - UI.StatusBarHeight))
 	{
-		if (x < UI.AvailableCommandsXOffset || x > UI.AvailableCommandsXOffset + (UI.CommandItemWidth / 2) * MaxAvailableCommands)
+		int availableCommandWidth = UI.CommandItemWidth / 2;
+		if (x < UI.AvailableCommandsXOffset || x > UI.AvailableCommandsXOffset + (availableCommandWidth + 5) * MaxAvailableCommands)
 			return -1;
 
-		return (x - UI.AvailableCommandsXOffset) / (UI.CommandItemWidth / 2);;
+		return (x - UI.AvailableCommandsXOffset) / (availableCommandWidth + 5);
 	}
 
 	return -1;
