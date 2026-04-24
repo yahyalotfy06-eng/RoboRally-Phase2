@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="CMUgraphicsLib">
@@ -141,7 +141,16 @@
     <ClCompile Include="ApplicationManager.cpp">
       <Filter>ApplicationManager</Filter>
     </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>ApplicationManager</Filter>
+    </ClCompile>
     <ClCompile Include="Action.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchToDesignModeAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="SwitchToPlayModeAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -261,7 +270,16 @@
     <ClInclude Include="ApplicationManager.h">
       <Filter>ApplicationManager</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>ApplicationManager</Filter>
+    </ClInclude>
     <ClInclude Include="Action.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchToDesignModeAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="SwitchToPlayModeAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">

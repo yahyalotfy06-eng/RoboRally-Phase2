@@ -1,6 +1,9 @@
 #ifndef OUTPUT_H
 #define OUTPUT_H
 
+#include <string>
+using namespace std;
+
 #include "DEFS.h"
 #include "UI_Info.h" 
 #include "CMUgraphicsLib\CMUgraphics.h"

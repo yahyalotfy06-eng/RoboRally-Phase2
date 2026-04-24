@@ -1,6 +1,9 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <string>
+using namespace std;
+
 #include "DEFS.h"
 #include "UI_Info.h" 
 #include "CMUgraphicsLib\CMUgraphics.h"

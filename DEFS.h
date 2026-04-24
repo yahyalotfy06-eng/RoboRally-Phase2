@@ -56,6 +56,12 @@ enum Direction // Directions of the game
 	LEFT
 };
 
+enum PhaseType // Phases of the game
+{
+	PHASE_MOVEMENT,
+	PHASE_SHOOTING // [OPTIONAL BONUS]
+};
+
 enum Command
 {
 	NO_COMMAND,

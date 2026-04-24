@@ -11,6 +11,7 @@
 #define NumVerticalCells 5
 #define MaxPlayerCount 2
 #define MaxAvailableCommands 10
+#define MaxSavedCommands 5
 
 enum GUI_MODE		// Graphical user interface mode
 {
