@@ -57,6 +57,7 @@ void Player::Draw(Output* pOut) const
 {
 	color playerColor = UI.PlayerColors[playerNum];
 
+	pOut->DrawPlayer(pCell->GetCellPosition(), playerNum, playerColor, currDirection);
 	///TODO: Call the appropriate Output function to draw the player token with playerColor
 }
 
@@ -65,6 +66,16 @@ void Player::ClearDrawing(Output* pOut) const
 	///TODO: Determine the correct background colour for this cell
 	//       (hint: may differ from UI.CellColor if cell is a WaterPit or DangerZone)
 	color cellColor = UI.CellColor;
+
+	if (pCell->HasWaterPit()) {
+		cellColor = UI.WaterPitsCellColor;
+	}
+
+	if (pCell->HasDangerZone()) {
+		cellColor = UI.DangerZoneCellColor;
+	}
+
+	pOut->DrawPlayer(pCell->GetCellPosition(), playerNum, cellColor, currDirection);
 
 	///TODO: Call the appropriate Output function to draw the token using cellColor (erases it)
 }
@@ -81,8 +92,13 @@ void Player::Move(Grid* pGrid, GameState* pState)
 
 void Player::AppendPlayerInfo(string& playersInfo) const
 {
-	// TODO: Modify the Info as needed
-	playersInfo += "P" + to_string(playerNum) + "(";
-	playersInfo += to_string(currDirection) + ", ";
-	playersInfo += to_string(health) + ")";
+	string dirText;
+	switch (currDirection) {
+	case UP: dirText = "Up"; break;
+	case DOWN: dirText = "Down"; break;
+	case RIGHT: dirText = "Right"; break;
+	case LEFT: dirText = "Left"; break;
+	}
+
+	playersInfo += "P" + to_string(playerNum) + "(Dir: " + dirText + ", Health: " + to_string(health) + ")";
 }
