@@ -7,6 +7,7 @@
 #include "AddFlagAction.h"
 #include "SwitchToPlayModeAction.h"
 #include "SwitchToDesignModeAction.h"
+#include "SelectCommandAction.h" //included the  new class
 ///TODO: Add #include for all action types
 
 #include "GameState.h"
@@ -76,11 +77,11 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		pAct = new AddBeltAction(this);
 		break;
 
-	case ADD_ROTATINGGEAR:
+	case ADD_ROTATING_GEAR:
 		pAct = new AddRotatingGearAction(this);
 		break;
 
-	case ADD_FLAG:
+	case SET_FLAG_CELL:
 		pAct = new AddFlagAction(this);
 		break;
 
@@ -98,6 +99,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 		break;
 
 	///TODO: Add a case for EACH remaining Play Mode action type
+	case SELECT_COMMAND:
+		pAct = new SelectCommandAction(this);
+		break;
+
 	case STATUS:	// a click on the status bar ==> no action
 		return;
 	}

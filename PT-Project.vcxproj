@@ -132,6 +132,7 @@
     <ClCompile Include="AddBeltAction.cpp" />
     <ClCompile Include="SwitchToDesignModeAction.cpp" />
     <ClCompile Include="SwitchToPlayModeAction.cpp" />
+    <ClCompile Include="SelectCommandAction.cpp" />
     <ClCompile Include="AddFlagAction.cpp" />
     <ClCompile Include="AddRotatingGearAction.cpp" />
     <ClCompile Include="Antenna.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="AddBeltAction.h" />
     <ClInclude Include="SwitchToDesignModeAction.h" />
     <ClInclude Include="SwitchToPlayModeAction.h" />
+    <ClInclude Include="SelectCommandAction.h" />
     <ClInclude Include="AddFlagAction.h" />
     <ClInclude Include="AddRotatingGearAction.h" />
     <ClInclude Include="Antenna.h" />
