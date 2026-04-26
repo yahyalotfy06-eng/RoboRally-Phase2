@@ -8,6 +8,7 @@
 #include "SwitchToPlayModeAction.h"
 #include "SwitchToDesignModeAction.h"
 #include "SelectCommandAction.h" //included the  new class
+#include "ExecuteCommandAction.h"
 ///TODO: Add #include for all action types
 
 #include "GameState.h"
@@ -101,6 +102,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType)
 	///TODO: Add a case for EACH remaining Play Mode action type
 	case SELECT_COMMAND:
 		pAct = new SelectCommandAction(this);
+		break;
+
+	case EXECUTE_COMMANDS:
+		pAct = new ExecuteCommandAction(this);
 		break;
 
 	case STATUS:	// a click on the status bar ==> no action

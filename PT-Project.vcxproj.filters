@@ -156,6 +156,9 @@
     <ClCompile Include="SelectCommandAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="ExecuteCommandAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
     <ClCompile Include="GameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
@@ -286,6 +289,9 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="SelectCommandAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="ExecuteCommandAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">

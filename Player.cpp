@@ -88,7 +88,86 @@ void Player::Move(Grid* pGrid, GameState* pState)
 	// - Execute the saved commands one by one, waiting for a mouse click between each
 	// - After all commands are executed, apply the game object effect at the final cell (if any)
 	// - Use CellPosition and Grid to handle movement and cell updates
+
+	for (int i = 0; i < savedCommandCount; i++)
+	{
+		Command cmd = savedCommands[i];
+
+		if (cmd == NO_COMMAND)
+			continue;
+
+		int steps = 0;
+		bool backward = false;
+
+		switch (cmd) //choose which command to be executed-----yahya
+		{
+		case MOVE_FORWARD_ONE_STEP: steps = 1; break;
+		case MOVE_BACKWARD_ONE_STEP: steps = 1; backward = true; break;
+		case MOVE_FORWARD_TWO_STEPS: steps = 2; break;
+		case MOVE_BACKWARD_TWO_STEPS: steps = 2; backward = true; break;
+		case MOVE_FORWARD_THREE_STEPS: steps = 3; break;
+		case MOVE_BACKWARD_THREE_STEPS: steps = 3; backward = true; break;
+		case ROTATE_CLOCKWISE:
+			switch (currDirection) {//calculate the upcoming direction after rotation-----yahya
+			case UP: currDirection = RIGHT; break;
+			case RIGHT: currDirection = DOWN; break;
+			case DOWN: currDirection = LEFT; break;
+			case LEFT: currDirection = UP; break;
+			}
+			break;
+		case ROTATE_COUNTERCLOCKWISE:
+			switch (currDirection) {
+			case UP: currDirection = LEFT; break;
+			case LEFT: currDirection = DOWN; break;
+			case DOWN: currDirection = RIGHT; break;
+			case RIGHT: currDirection = UP; break;
+			}
+			break;
+		}
+
+		if (steps > 0)
+		{
+			Direction moveDir = currDirection;
+			if (backward)
+			{
+				switch (currDirection) {
+				case UP: moveDir = DOWN; break;
+				case DOWN: moveDir = UP; break;
+				case RIGHT: moveDir = LEFT; break;
+				case LEFT: moveDir = RIGHT; break;
+				}
+			}
+
+			for (int s = 0; s < steps; s++)
+			{
+				CellPosition currentPos = pCell->GetCellPosition();
+				currentPos.AddCellNum(1, moveDir);
+
+				if (!currentPos.IsValidCell())
+					break; 
+
+				pGrid->UpdatePlayerCell(this, currentPos);
+				pGrid->UpdateInterface(pState);
+
+				pGrid->PrintErrorMessage("Step executed. Click to continue...");
+			}
+		}
+		else
+		{
+			this->ClearDrawing(pGrid->GetOutput());
+			this->Draw(pGrid->GetOutput());
+			pGrid->UpdateInterface(pState);
+
+			pGrid->PrintErrorMessage("Rotation executed. Click to continue...");
+		}
+	}
+
+	if (pCell && pCell->GetGameObject())
+	{
+		pCell->GetGameObject()->Apply(pGrid, pState, this);
+	}
 }
+
 
 void Player::AppendPlayerInfo(string& playersInfo) const
 {
