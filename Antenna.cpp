@@ -1,5 +1,7 @@
 #include "Antenna.h"
-
+#include "GameState.h"
+#include "Player.h"
+#include <cmath>
 
 
 
@@ -28,6 +30,44 @@ void Antenna::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 	//    The player closest to the antenna plays first. Ties are broken by player number.
 	//    Use pState to update the turn order accordingly.
 	// 3- Print a message indicating which player will play first
+
+
+
+    pGrid->PrintErrorMessage("The antenna will decide the turn of players. Click to continue ...");//step 1-----yahya
+
+
+
+    CellPosition antennaPos = this->GetPosition();
+
+    int bestPlayer = -1;
+    int bestDistance = 999999; 
+
+   
+    for (int i = 0; i < MaxPlayerCount; i++)
+    {
+        Player* p = pState->GetPlayer(i);
+        CellPosition playerPos = p->GetCell()->GetCellPosition();
+
+        int dV = abs(playerPos.VCell() - antennaPos.VCell());
+        int dH = abs(playerPos.HCell() - antennaPos.HCell());
+
+        int distance = dV + dH;
+
+
+        if (distance < bestDistance)
+        {
+            bestDistance = distance;
+            bestPlayer = i;
+        }
+    }
+
+ 
+    pState->SetFirstPlayer(bestPlayer);//step 2-----yahya
+
+    
+    pGrid->PrintErrorMessage("Player " + to_string(bestPlayer) + " will play first!");//step 3-----yahya
+
+
 
 }
 
