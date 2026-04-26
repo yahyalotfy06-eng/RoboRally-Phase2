@@ -25,6 +25,9 @@ void ExecuteCommandAction::Execute() {
       pPlayer->Move(pGrid, pGameState);
 
       pPlayer->ClearSavedCommands();
+
+      if (pGameState->GetEndGame())
+        break;
     }
   }
 }

@@ -183,7 +183,7 @@ void Player::Move(Grid *pGrid, GameState *pState) {
           pGrid->PrintErrorMessage("Player " + to_string(playerNum) + " fell off the board! Rebooting...");
           health = (health > 0) ? health - 1 : 0;
           pGrid->UpdatePlayerCell(this, pGrid->GetStartCell()->GetCellPosition());
-          break;
+          return;
         }
 
         pGrid->UpdatePlayerCell(this, currentPos);

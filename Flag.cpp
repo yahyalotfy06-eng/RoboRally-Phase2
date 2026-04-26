@@ -1,4 +1,5 @@
 #include "Flag.h"
+#include "GameState.h"
 Flag::Flag(const CellPosition & flagposition) : GameObject(flagposition)
 {
 
@@ -19,6 +20,12 @@ void Flag::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 
 	// 2- Apply the flag's effect by ending the game
 	//    Review the "pGrid" functions and decide which function can be used for that
+	
+	pGrid->PrintErrorMessage("You have reached a flag. Click to continue ...");
+
+	pState->SetEndGame(true);
+
+	pGrid->PrintErrorMessage("Player wins! Click to continue ...");
 }
 
 Flag::~Flag()
