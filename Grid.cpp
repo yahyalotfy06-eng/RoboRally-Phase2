@@ -6,7 +6,6 @@
 #include "GameState.h"
 #include "Player.h"
 
-
 Grid::Grid(Input *pIn, Output *pOut) : pIn(pIn), pOut(pOut) {
   // Allocate every Cell on the board (bottom-up so cell numbers are assigned
   // correctly)

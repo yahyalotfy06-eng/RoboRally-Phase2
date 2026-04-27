@@ -2,6 +2,7 @@
 
 #include "Grid.h"
 
+#include "AddAntennaAction.h"
 #include "AddBeltAction.h"
 #include "AddFlagAction.h"
 #include "AddRotatingGearAction.h"
@@ -65,6 +66,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
 
   // According to Action Type, create the corresponding action object
   switch (ActType) {
+  case ADD_ANTENNA:
+    pAct = new AddAntennaAction(this);
+    break;
+
   case ADD_BELT:
     pAct = new AddBeltAction(this);
     break;
