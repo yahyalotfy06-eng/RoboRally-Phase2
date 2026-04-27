@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Action.cpp" />
+    <ClCompile Include="AddAntennaAction.cpp" />
     <ClCompile Include="AddBeltAction.cpp" />
     <ClCompile Include="SwitchToDesignModeAction.cpp" />
     <ClCompile Include="SwitchToPlayModeAction.cpp" />
@@ -192,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Action.h" />
+    <ClInclude Include="AddAntennaAction.h" />
     <ClInclude Include="AddBeltAction.h" />
     <ClInclude Include="SwitchToDesignModeAction.h" />
     <ClInclude Include="SwitchToPlayModeAction.h" />
