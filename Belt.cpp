@@ -1,5 +1,7 @@
 #include "Belt.h"
-
+#include "Grid.h"
+#include "Player.h"
+#include "GameState.h"
 
 Belt::Belt(const CellPosition & startCellPos, const CellPosition & endCellPos) : GameObject(startCellPos)
 {
@@ -26,6 +28,17 @@ void Belt::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 	// 2- Apply the belt's effect by moving the player to the endCellPos
 	//    Review the "pGrid" functions and decide which function can be used for that
 
+	if (!endCellPos.IsValidCell())
+		return;
+	
+	pGrid->PrintErrorMessage("You have reached a belt. Click to continue ...");//step 1-----
+
+
+	pGrid->UpdatePlayerCell(pPlayer, endCellPos);//step 2-----
+
+
+	pGrid->UpdateInterface(pState);//chose update interface function-----
+
 }
 CellPosition Belt::GetEndPosition() const
 {
@@ -33,6 +46,4 @@ CellPosition Belt::GetEndPosition() const
 }
 
 
-Belt::~Belt()
-{
-}
+Belt::~Belt() {}

@@ -30,6 +30,8 @@ void ExecuteCommandAction::Execute() {
         break;
     }
   }
+
+  pGameState->AdvanceCurrentPlayer();
 }
 
 ExecuteCommandAction::~ExecuteCommandAction() {}

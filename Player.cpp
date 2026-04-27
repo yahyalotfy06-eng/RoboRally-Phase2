@@ -187,6 +187,18 @@ void Player::Move(Grid *pGrid, GameState *pState) {
         }
 
         pGrid->UpdatePlayerCell(this, currentPos);
+
+
+
+        GameObject* obj = pCell->GetGameObject();//execute any game object the player passes on-----yahya
+        if (obj)
+        {
+            obj->Apply(pGrid, pState, this);
+        }
+
+
+
+
         pGrid->UpdateInterface(pState);
 
         pGrid->PrintErrorMessage("Step executed. Click to continue...");
@@ -198,10 +210,6 @@ void Player::Move(Grid *pGrid, GameState *pState) {
 
       pGrid->PrintErrorMessage("Rotation executed. Click to continue...");
     }
-  }
-
-  if (pCell && pCell->GetGameObject()) {
-    pCell->GetGameObject()->Apply(pGrid, pState, this);
   }
 }
 

@@ -21,6 +21,8 @@ class Player
 	Command savedCommands[MaxSavedCommands];
 	int savedCommandCount; // how many commands have been saved so far (0..MaxSavedCommands)
 
+
+
 	// ---- [OPTIONAL BONUS] Shooting Phase data members ----
 	// Uncomment when adding the shooting phase (see DEFS.h PhaseType):
 	//   int laserDamage; // damage per shot (default = 1; double-laser consumable = 2)
