@@ -9,10 +9,15 @@ class AddFlagAction :public Action
 
 	// [Action Parameters]
 	CellPosition flagPos; // 1- The position of the flag
+
+	static bool isFlagAdded;
+
 public:
 	
 	AddFlagAction(ApplicationManager *pApp);
 	virtual void ReadActionParameters(); // Reads action parameters 
+
+	static void resetisflag();
 
 	virtual void Execute(); // Creates a new flag Object 
 							// then Sets this flag object to the GameObject Pointer of its Cell
