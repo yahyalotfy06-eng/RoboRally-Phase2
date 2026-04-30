@@ -79,6 +79,22 @@ Cell *Grid::GetStartCell() const {
   // Players start at the bottom-left cell of the board
   return CellList[NumVerticalCells - 1][0];
 }
+Cell* Grid::GetCell(const CellPosition& pos) const
+{
+    if (!pos.IsValidCell())
+        return nullptr;
+
+    return CellList[pos.VCell()][pos.HCell()];
+}
+
+bool Grid::IsCellEmpty(const CellPosition& pos) const
+{
+    Cell* pCell = GetCell(pos);
+    if (!pCell)
+        return false;
+
+    return (pCell->GetGameObject() == nullptr);
+}
 
 // ========== User Interface ==========
 

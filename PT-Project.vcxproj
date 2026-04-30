@@ -131,6 +131,9 @@
     <ClCompile Include="Action.cpp" />
     <ClCompile Include="AddAntennaAction.cpp" />
     <ClCompile Include="AddBeltAction.cpp" />
+    <ClCompile Include="AddDangerZoneAction.cpp" />
+    <ClCompile Include="AddWaterPitAction.cpp" />
+    <ClCompile Include="AddWorkshopAction.cpp" />
     <ClCompile Include="SwitchToDesignModeAction.cpp" />
     <ClCompile Include="SwitchToPlayModeAction.cpp" />
     <ClCompile Include="SelectCommandAction.cpp" />
@@ -195,6 +198,9 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="AddAntennaAction.h" />
     <ClInclude Include="AddBeltAction.h" />
+    <ClInclude Include="AddDangerZoneAction.h" />
+    <ClInclude Include="AddWaterPitAction.h" />
+    <ClInclude Include="AddWorkshopAction.h" />
     <ClInclude Include="SwitchToDesignModeAction.h" />
     <ClInclude Include="SwitchToPlayModeAction.h" />
     <ClInclude Include="SelectCommandAction.h" />
