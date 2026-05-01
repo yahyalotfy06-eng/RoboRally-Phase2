@@ -21,6 +21,7 @@ GameState::GameState(Grid* pGrid)
 	currPlayerNumber = 0;         // Player 0 goes first by default
 	currentPhase = PHASE_MOVEMENT;
 	endGame = false;
+	availableCommandsCount = 0;   // No available commands until Play Mode starts
 }
 
 GameState::~GameState()
@@ -113,4 +114,25 @@ void GameState::AppendPlayersInfo(string& info) const
 			info += ", ";
 	}
 	info += " | Current Player = P" + to_string(currPlayerNumber);
+}
+
+// ========== Available Commands ==========
+
+void GameState::SetAvailableCommands(Command cmds[], int count)
+{
+	availableCommandsCount = count;
+	for (int i = 0; i < count; i++)
+		availableCommands[i] = cmds[i];
+}
+
+Command GameState::GetAvailableCommand(int index) const
+{
+	if (index >= 0 && index < availableCommandsCount)
+		return availableCommands[index];
+	return NO_COMMAND;
+}
+
+int GameState::GetAvailableCommandsCount() const
+{
+	return availableCommandsCount;
 }

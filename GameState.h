@@ -30,6 +30,10 @@ class GameState
 	PhaseType currentPhase; // Which phase of the current round we are in
 	bool endGame;           // True once a win/loss condition is detected
 
+	// The shuffled available commands shown in the commands bar this round
+	Command availableCommands[COMMANDS_COUNT - 1];
+	int availableCommandsCount;
+
 public:
 
 	// Constructor: creates all Player objects starting at Grid's start cell.
@@ -73,6 +77,12 @@ public:
 
 	bool GetEndGame() const;
 	void SetEndGame(bool end); // Call when a player reaches the Flag or falls into a WaterPit
+
+	// ========== Available Commands (shuffled order shown in commands bar) ==========
+
+	void SetAvailableCommands(Command cmds[], int count); // Saves the shuffled command order
+	Command GetAvailableCommand(int index) const;         // Returns the command at visual position index
+	int GetAvailableCommandsCount() const;
 
 	// ========== Drawing Helpers (called by Grid::UpdateInterface) ==========
 

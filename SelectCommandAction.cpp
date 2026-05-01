@@ -49,7 +49,8 @@ void SelectCommandAction::Execute()
 
 	if (cmdIndex != -1)
 	{
-		Command cmd = (Command)(cmdIndex + 1); 
+		// Look up the actual command at the clicked visual position (respects shuffle order)
+		Command cmd = pState->GetAvailableCommand(cmdIndex);
 
 		pPlayer->AddSavedCommand(cmd);
 
