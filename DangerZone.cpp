@@ -16,6 +16,13 @@ void DangerZone::Save(ofstream& OutFile, GameObjectType type) {  //shahd
 	OutFile << position.GetCellNum() << endl;
 }
 
+void DangerZone::Load(ifstream& Infile)
+{
+	int cellNum;
+	Infile >> cellNum;
+	position = CellPosition(cellNum);
+}
+
 void DangerZone::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below

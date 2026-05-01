@@ -15,6 +15,13 @@ void Flag::Save(ofstream& OutFile, GameObjectType type) {  //shahd
 	OutFile << position.GetCellNum() << endl;
 }
 
+void Flag::Load(ifstream& Infile)
+{
+	int cellNum;
+	Infile >> cellNum;
+	position = CellPosition(cellNum);
+}
+
 void Flag::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
 

@@ -10,6 +10,13 @@ void WaterPit::Save(ofstream& OutFile, GameObjectType type) {  //shahd
     OutFile << position.GetCellNum() <<endl;
 }
 
+void WaterPit::Load(ifstream& Infile)
+{
+    int cellNum;
+    Infile >> cellNum;
+    position = CellPosition(cellNum);
+}
+
 void WaterPit::Draw(Output *pOut) const { pOut->DrawWaterPit(position); }
 
 void WaterPit::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {

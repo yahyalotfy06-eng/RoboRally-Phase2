@@ -9,8 +9,15 @@ void Workshop::Draw(Output *pOut) const { pOut->DrawWorkshop(position); }
 void Workshop::Save(ofstream& OutFile, GameObjectType type) {  //shahd
     if (type != WORKSHOP_TYPE) return;
     OutFile << position.GetCellNum()<< endl;
-
 }
+
+void Workshop::Load(ifstream& Infile)
+{
+    int cellNum;
+    Infile >> cellNum;
+    position = CellPosition(cellNum);
+}
+
 void Workshop::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {
   /// TODO: Implement this function
   // Apply the workshop's effect on the player

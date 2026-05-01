@@ -13,6 +13,14 @@ void RotatingGear::Save(ofstream& OutFile, GameObjectType type) {  //shahd
 	OutFile << position.GetCellNum()<< " "<< (int)isClockWise <<endl; //int converts bool to int (1 or 0)
 }
 
+void RotatingGear::Load(ifstream& Infile)
+{
+	int cellNum, cw;
+	Infile >> cellNum >> cw;
+	position = CellPosition(cellNum);
+	isClockWise = (bool)cw;
+}
+
 
 void RotatingGear::Draw(Output* pOut) const
 {
