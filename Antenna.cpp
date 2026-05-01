@@ -10,6 +10,11 @@ Antenna::Antenna(const CellPosition & antennaPosition):GameObject(antennaPositio
 {
 }
 
+void Antenna::Save(ofstream& OutFile, GameObjectType type) {  //shahd
+    if (type != ANTENNA_TYPE) return;
+    OutFile << position.GetCellNum() << endl;
+}
+
 void Antenna::Draw(Output * pOut) const
 {
 	pOut->DrawAntenna(position);

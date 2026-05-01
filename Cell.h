@@ -16,7 +16,7 @@ class Cell
 {
 	const CellPosition position;	// the cell position (vCell and hCell) --> will not change after the Cell is constructed
 
-	GameObject * pGameObject;       // a pointer to the GameObject existing in the Cell (if any)
+	GameObject * pGameObject;     //point to any game object type//  // a pointer to the GameObject existing in the Cell (if any)
 	                                // if no GameObject in this Cell, pGameObject should be NULL
 
 public:

@@ -16,6 +16,18 @@ Grid::Grid(Input *pIn, Output *pOut) : pIn(pIn), pOut(pOut) {
   Clipboard = NULL;
 }
 
+void Grid:: saveAll(ofstream& OutFile, GameObjectType type) {     //shahd
+    for (int i = NumVerticalCells - 1; i >= 0; i--) {
+        for (int j = 0; j < NumHorizontalCells; j++) {
+            GameObject* pObject = CellList[i][j]->GetGameObject();
+            if (pObject != nullptr) {
+                pObject->Save(OutFile, type);  //save is called depend on obj type
+            }
+        }
+    }
+}
+
+
 // ========== Board Operations ==========
 
 bool Grid::AddObjectToCell(GameObject *pNewObject) {

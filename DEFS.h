@@ -77,4 +77,13 @@ enum Command
 	COMMANDS_COUNT,
 };
 
+enum GameObjectType {  //shahd
+	FLAG_TYPE,
+	WATERPIT_TYPE,
+	DANGERZONE_TYPE,
+	BELT_TYPE,
+	WORKSHOP_TYPE,
+	ANTENNA_TYPE,
+	ROTATINGGEAR_TYPE,
+};
 #endif
