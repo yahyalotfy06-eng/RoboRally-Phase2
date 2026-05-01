@@ -20,6 +20,8 @@ Cell *Player::GetCell() const { return pCell; }
 
 void Player::SetHealth(int h) {
   /// TODO: Add validation (e.g. clamp to 0..MaxHealth)
+  if (h < 0)  h = 0;   // clamp: health cannot go below 0
+  if (h > 10) h = 10;  // clamp: health cannot exceed max (10)
   health = h;
 }
 int Player::GetHealth() const { return health; }
@@ -181,7 +183,7 @@ void Player::Move(Grid *pGrid, GameState *pState) {
 
         if (!currentPos.IsValidCell()) {//check if player fell off the grid-----yahya
           pGrid->PrintErrorMessage("Player " + to_string(playerNum) + " fell off the board! Rebooting...");
-          health = (health > 0) ? health - 1 : 0;
+          SetHealth(health - 1); // use SetHealth so the 0..10 clamp is always applied
           pGrid->UpdatePlayerCell(this, pGrid->GetStartCell()->GetCellPosition());
           return;
         }

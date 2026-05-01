@@ -19,19 +19,15 @@ void ExecuteCommandAction::Execute() {
   if (pGameState->GetEndGame())
     return;
 
-  for (int i = 0; i < MaxPlayerCount; i++) {
-    Player *pPlayer = pGameState->GetPlayer(i);
-    if (pPlayer) {
-      pPlayer->Move(pGrid, pGameState);
-
-      pPlayer->ClearSavedCommands();
-
-      if (pGameState->GetEndGame())
-        break;
-    }
+  // Execute only the current player's saved commands, then pass the turn
+  Player *pPlayer = pGameState->GetCurrentPlayer();
+  if (pPlayer) {
+    pPlayer->Move(pGrid, pGameState);
+    pPlayer->ClearSavedCommands();
   }
 
-  pGameState->AdvanceCurrentPlayer();
+  if (!pGameState->GetEndGame())
+    pGameState->AdvanceCurrentPlayer();
 }
 
 ExecuteCommandAction::~ExecuteCommandAction() {}

@@ -66,7 +66,8 @@ void Antenna::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
         int distance = dV + dH;
 
 
-        if (distance < bestDistance)
+        if (distance < bestDistance ||
+            (distance == bestDistance && i < bestPlayer)) // tie-break: lower player number goes first
         {
             bestDistance = distance;
             bestPlayer = i;
