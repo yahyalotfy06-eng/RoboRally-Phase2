@@ -15,6 +15,13 @@ void Antenna::Save(ofstream& OutFile, GameObjectType type) {  //shahd
     OutFile << position.GetCellNum() << endl;
 }
 
+void Antenna::Load(ifstream& Infile)      //shahd
+{
+    int cellNum;
+    Infile >> cellNum;
+    position = CellPosition(cellNum);
+}
+
 void Antenna::Draw(Output * pOut) const
 {
 	pOut->DrawAntenna(position);

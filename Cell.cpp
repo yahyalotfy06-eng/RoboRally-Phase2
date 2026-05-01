@@ -1,5 +1,4 @@
 #include "Cell.h"
-
 #include "Belt.h"
 #include "DangerZone.h"
 #include "GameObject.h"
@@ -7,6 +6,10 @@
 #include "Output.h"
 #include "Player.h"
 #include "WaterPit.h"
+#include "flag.h"
+#include "RotatingGear.h"
+#include "Antenna.h"
+#include"Workshop.h"
 
 Cell::Cell(const CellPosition &pos) : position(pos) {
   // initializes the data members (position & pGameObject)
@@ -38,20 +41,33 @@ Flag *Cell::HasFlag() const {
 
   /// TODO: Implement the following function like HasBelt() function
 
-  return false; // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
+    return dynamic_cast<Flag*>(pGameObject);  // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
 }
 WaterPit *Cell::HasWaterPit() const {
 
   /// TODO: Implement the following function like HasBelt() function
 
-  return false; // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
+    return dynamic_cast<WaterPit*>(pGameObject);  // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
 }
 
 DangerZone *Cell::HasDangerZone() const {
   /// TODO: Implement the following function like HasBelt() function
 
-  return false; // THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
+    return dynamic_cast<DangerZone*>(pGameObject);// THIS LINE SHOULD CHANGED WITH YOUR IMPLEMENTATION
 }
+
+RotatingGear* Cell::HasRotatingGear() const {    //shahd
+    return dynamic_cast<RotatingGear*>(pGameObject);
+}
+
+Antenna* Cell::HasAntenna() const {
+    return dynamic_cast<Antenna*>(pGameObject);
+}
+
+Workshop* Cell::HasWorkshop() const {
+    return dynamic_cast<Workshop*>(pGameObject);
+}
+
 
 // ======= Drawing Functions =======
 

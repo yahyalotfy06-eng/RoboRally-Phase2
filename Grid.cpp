@@ -155,3 +155,48 @@ Grid::~Grid() {
 
   // Players are owned by GameState -- do NOT delete them here.
 }
+//query
+int Grid::GetCellTypeCount(GameObjectType type) {     //shahd
+    int count = 0;
+    for (int i = NumVerticalCells - 1; i >= 0; i--)
+        for (int j = 0; j < NumHorizontalCells; j++) {
+            switch (type) {
+            case FLAG_TYPE:
+                if (CellList[i][j]->HasFlag() != nullptr) {
+                    ++count;
+                }
+                break;
+            case WATERPIT_TYPE:
+                if (CellList[i][j]->HasWaterPit() != nullptr) {
+                    ++count;
+                }
+                break;
+            case DANGERZONE_TYPE:
+                if (CellList[i][j]->HasDangerZone() != nullptr) {
+                    ++count;
+                }
+                break;
+            case BELT_TYPE:
+                if (CellList[i][j]->HasBelt() != nullptr) {
+                    ++count;
+                }
+                break;
+            case WORKSHOP_TYPE:
+                if (CellList[i][j]->HasWorkshop() != nullptr) {
+                    ++count;
+                }
+                break;
+            case ANTENNA_TYPE:
+                if (CellList[i][j]->HasAntenna() != nullptr) {
+                    ++count;
+                } break;
+            case ROTATINGGEAR_TYPE:
+                if (CellList[i][j]->HasRotatingGear() != nullptr) {
+                    ++count;
+                } break;
+            default: break;
+            }
+        }
+
+    return count;
+}

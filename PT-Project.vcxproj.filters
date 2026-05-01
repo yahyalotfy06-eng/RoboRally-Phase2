@@ -214,6 +214,7 @@
     <ClCompile Include="AddWaterPitAction.cpp" />
     <ClCompile Include="AddDangerZoneAction.cpp" />
     <ClCompile Include="AddWorkshopAction.cpp" />
+    <ClCompile Include="SaveGridAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -358,5 +359,6 @@
     <ClInclude Include="AddWaterPitAction.h" />
     <ClInclude Include="AddDangerZoneAction.h" />
     <ClInclude Include="AddWorkshopAction.h" />
+    <ClInclude Include="SaveGridAction.h" />
   </ItemGroup>
 </Project>

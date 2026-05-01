@@ -15,6 +15,15 @@ void Belt::Save(ofstream& OutFile, GameObjectType type) {  //shahd
 	OutFile << position.GetCellNum() << " " << endCellPos.GetCellNum() << endl;
 }
 
+void Belt::Load(ifstream& Infile)      //shahd
+{
+	int startCellNum, endCellNum;
+	Infile >> startCellNum >> endCellNum;
+	position = CellPosition(startCellNum);
+	position = CellPosition(endCellNum);
+}
+
+
 
 void Belt::Draw(Output* pOut) const
 {

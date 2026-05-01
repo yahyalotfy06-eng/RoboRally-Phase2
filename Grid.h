@@ -72,6 +72,8 @@ public:
 	///TODO: Add any additional board-query getters here (e.g. GetCell(CellPosition))
 	Cell* GetCell(const CellPosition& pos) const;
 	bool IsCellEmpty(const CellPosition& pos) const;
+	int GetCellTypeCount(GameObjectType type); // Method to query for count of cells of some type. //shahd
+
 
 	// ========== User Interface ==========
 
