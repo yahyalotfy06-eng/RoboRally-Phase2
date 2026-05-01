@@ -9,6 +9,13 @@ Belt::Belt(const CellPosition & startCellPos, const CellPosition & endCellPos) :
 
 	///TODO: Do the needed validation
 }
+
+void Belt::Save(ofstream& OutFile, GameObjectType type) {  //shahd
+	if (type != BELT_TYPE) return;
+	OutFile << position.GetCellNum() << " " << endCellPos.GetCellNum() << endl;
+}
+
+
 void Belt::Draw(Output* pOut) const
 {
 	pOut->DrawBelt(position, endCellPos);

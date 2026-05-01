@@ -5,6 +5,11 @@
 WaterPit::WaterPit(const CellPosition &waterPitPosition)
     : GameObject(waterPitPosition) {}
 
+void WaterPit::Save(ofstream& OutFile, GameObjectType type) {  //shahd
+    if (type != WATERPIT_TYPE) return;
+    OutFile << position.GetCellNum() <<endl;
+}
+
 void WaterPit::Draw(Output *pOut) const { pOut->DrawWaterPit(position); }
 
 void WaterPit::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {

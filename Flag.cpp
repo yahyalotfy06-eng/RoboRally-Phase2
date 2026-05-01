@@ -10,6 +10,11 @@ void Flag::Draw(Output* pOut) const
 	pOut->DrawFlag(position);
 }
 
+void Flag::Save(ofstream& OutFile, GameObjectType type) {  //shahd
+	if (type != FLAG_TYPE) return;
+	OutFile << position.GetCellNum() << endl;
+}
+
 void Flag::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
 

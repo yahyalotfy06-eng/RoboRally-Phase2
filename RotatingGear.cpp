@@ -8,6 +8,12 @@ RotatingGear::RotatingGear(const CellPosition & gearposition,bool clockwise) : G
 	isClockWise = clockwise;
 }
 
+void RotatingGear::Save(ofstream& OutFile, GameObjectType type) {  //shahd
+	if (type != ROTATINGGEAR_TYPE) return;
+	OutFile << position.GetCellNum()<< " "<< (int)isClockWise <<endl; //int converts bool to int (1 or 0)
+}
+
+
 void RotatingGear::Draw(Output* pOut) const
 {
 	pOut->DrawRotatingGear(position, isClockWise);

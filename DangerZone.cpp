@@ -11,6 +11,11 @@ void DangerZone::Draw(Output * pOut) const
 	pOut->DrawDangerZone(position);
 }
 
+void DangerZone::Save(ofstream& OutFile, GameObjectType type) {  //shahd
+	if (type != DANGERZONE_TYPE) return;
+	OutFile << position.GetCellNum() << endl;
+}
+
 void DangerZone::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 {
 	///TODO: Implement this function as mentioned in the guideline steps (numbered below) below
