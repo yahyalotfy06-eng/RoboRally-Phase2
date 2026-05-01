@@ -17,6 +17,7 @@ void SaveGridAction::ReadActionParameters() {
 	//clear msgs
 	pOut->ClearStatusBar();
 }
+
 void SaveGridAction::Execute() {
 	Grid* pGrid = pManager->GetGrid();
 	ReadActionParameters();

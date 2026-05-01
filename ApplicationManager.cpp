@@ -10,6 +10,7 @@
 #include "SelectCommandAction.h" //included new class to select commands-----yahya
 #include "SwitchToDesignModeAction.h"
 #include "SwitchToPlayModeAction.h"
+#include "SaveGridAction.h"
 
 /// TODO: Add #include for all action types
 
@@ -88,6 +89,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
 
   case EXIT:
     break;
+
+  case SAVE_GRID:    //shahd 
+      pAct = new SaveGridAction(this);
+      break;
 
     /// TODO: Add a case for EACH remaining Design Mode action type
 
