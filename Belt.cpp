@@ -20,7 +20,7 @@ void Belt::Load(ifstream& Infile)      //shahd
 	int startCellNum, endCellNum;
 	Infile >> startCellNum >> endCellNum;
 	position = CellPosition(startCellNum);
-	position = CellPosition(endCellNum);
+	endCellPos = CellPosition(endCellNum);
 }
 
 

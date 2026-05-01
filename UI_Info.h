@@ -40,6 +40,7 @@ enum DESIGN_MODE_ITEMS // The items of the Design Mode (you should add more item
 	ITM_SAVE,
 	ITM_LOAD,				//end os added items
 
+	
 	DESIGN_ITM_COUNT	// no. of items ==> This should be the last line in this enum
 };
 

@@ -96,6 +96,22 @@ void GameState::SetEndGame(bool end)
 
 // ========== Drawing Helpers ==========
 
+void GameState::ResetGame(Grid* pGrid)    //shahd
+{
+	for (int i = 0; i < MaxPlayerCount; i++)
+	{
+		PlayerList[i]->ResetPlayer(pGrid);
+	}
+
+	currPlayerNumber = 0;
+
+	currentPhase = PHASE_MOVEMENT;
+
+	endGame = false;
+
+	availableCommandsCount = 0;
+}
+
 void GameState::DrawAllPlayers(Output* pOut) const
 {
 	///TODO: Draw all players

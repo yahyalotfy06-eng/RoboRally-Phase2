@@ -1,4 +1,3 @@
-
 #include "SaveGridAction.h"
 #include<fstream>
 SaveGridAction::SaveGridAction(ApplicationManager* pApp) : Action(pApp) {

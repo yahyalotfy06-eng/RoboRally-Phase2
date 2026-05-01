@@ -47,7 +47,7 @@ public:
 
 	Direction GetDirection() const;
 	void      SetDirection(Direction d);
-
+	void ResetPlayer(Grid* pGrid);
 	///TODO: Add more setters/getters here as needed
 
 	// ====== Saved Commands ======

@@ -215,6 +215,8 @@
     <ClCompile Include="AddDangerZoneAction.cpp" />
     <ClCompile Include="AddWorkshopAction.cpp" />
     <ClCompile Include="SaveGridAction.cpp" />
+    <ClCompile Include="LoadGridAction.cpp" />
+    <ClCompile Include="NewGameAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -360,5 +362,7 @@
     <ClInclude Include="AddDangerZoneAction.h" />
     <ClInclude Include="AddWorkshopAction.h" />
     <ClInclude Include="SaveGridAction.h" />
+    <ClInclude Include="LoadGridAction.h" />
+    <ClInclude Include="NewGameAction.h" />
   </ItemGroup>
 </Project>

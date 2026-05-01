@@ -74,7 +74,7 @@ public:
 	void AdvancePhase();
 
 	// ========== End-Game ==========
-
+	void ResetGame(Grid* pGrid);
 	bool GetEndGame() const;
 	void SetEndGame(bool end); // Call when a player reaches the Flag or falls into a WaterPit
 

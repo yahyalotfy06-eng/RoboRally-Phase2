@@ -11,6 +11,7 @@
 #include "SwitchToDesignModeAction.h"
 #include "SwitchToPlayModeAction.h"
 #include "SaveGridAction.h"
+#include "NewGameAction.h"
 
 /// TODO: Add #include for all action types
 
@@ -110,6 +111,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
     pAct = new ExecuteCommandAction(this); // choosing execute command as the
                                            // action to be implemented----yahya
     break;
+
+  case NEW_GAME:         //shahd
+      pAct = new NewGameAction(this);
+      break;
 
   case STATUS: // a click on the status bar ==> no action
     return;

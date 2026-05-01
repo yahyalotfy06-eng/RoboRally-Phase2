@@ -81,6 +81,22 @@ void Player::ClearDrawing(Output *pOut) const {
   /// cellColor (erases it)
 }
 
+void Player::ResetPlayer(Grid* pGrid)
+{
+    // Reset player to start cell
+    Cell* pStartCell = pGrid->GetStartCell();
+    SetCell(pStartCell);
+
+    // Reset health to 10
+    SetHealth(10);
+
+    // Reset direction to RIGHT
+    SetDirection(RIGHT);
+
+    // Clear commands
+    ClearSavedCommands();
+}
+
 // ====== Game Logic ======
 
 void Player::Move(Grid *pGrid, GameState *pState) {
