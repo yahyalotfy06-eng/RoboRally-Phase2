@@ -22,25 +22,24 @@ enum GUI_MODE		// Graphical user interface mode
 enum DESIGN_MODE_ITEMS // The items of the Design Mode (you should add more items)
 {
 	// Note: Items MUST be ordered here as they appear in menu
-	// If you want to change the menu items order, change the order here
+	// Order matches Output::CreateDesignModeToolBar() drawing order exactly
 
-	ITM_SET_FLAG_CELL,
-	ITM_EXIT,
-	ITM_SWITCH_TO_PLAY_MODE,
-	ITM_ADD_ANTENNA,		//start of added items
-	ITM_ADD_BELT,
-	ITM_ADD_WATER_PIT,
-	ITM_ADD_DANGER_ZONE,
-	ITM_ADD_WORKSHOP,
-	ITM_ADD_ROTATING_GEAR,
-	ITM_COPY,
-	ITM_CUT,
-	ITM_PASTE,
-	ITM_DELETE,
-	ITM_SAVE,
-	ITM_LOAD,				//end os added items
+	ITM_SET_FLAG_CELL,		// position 0  (Flag icon)
+	ITM_EXIT,				// position 1  (Exit icon)
+	ITM_SWITCH_TO_PLAY_MODE,// position 2  (Play icon)
+	ITM_ADD_ANTENNA,		// position 3
+	ITM_ADD_BELT,			// position 4
+	ITM_ADD_WATER_PIT,		// position 5
+	ITM_ADD_DANGER_ZONE,	// position 6
+	ITM_ADD_WORKSHOP,		// position 7
+	ITM_ADD_ROTATING_GEAR,	// position 8
+	ITM_COPY,				// position 9
+	ITM_CUT,				// position 10
+	ITM_PASTE,				// position 11
+	ITM_DELETE,				// position 12
+	ITM_SAVE,				// position 13
+	ITM_LOAD,				// position 14
 
-	
 	DESIGN_ITM_COUNT	// no. of items ==> This should be the last line in this enum
 };
 

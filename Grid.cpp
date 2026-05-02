@@ -133,8 +133,26 @@ void Grid::UpdateInterface(const GameState *pState) const {
     pState->AppendPlayersInfo(playersInfo);
     pOut->PrintPlayersInfo(playersInfo);
 
-    // Note: UpdatePlayerCell() already redraws players step-by-step during Play
-    // mode.
+    // Redraw the commands bar: saved commands (left) + available commands (right)
+    Player* pCurrent = pState->GetCurrentPlayer();
+    if (pCurrent)
+    {
+      // Build saved commands array from the current player
+      int savedCount = pCurrent->GetSavedCommandCount();
+      Command savedCmds[MaxSavedCommands];
+      for (int i = 0; i < savedCount; i++)
+        savedCmds[i] = pCurrent->GetSavedCommand(i);
+
+      // Get available commands from GameState
+      int availCount = pState->GetAvailableCommandsCount();
+      Command availCmds[COMMANDS_COUNT];
+      for (int i = 0; i < availCount; i++)
+        availCmds[i] = pState->GetAvailableCommand(i);
+
+      pOut->CreateCommandsBar(savedCmds, savedCount, availCmds, availCount);
+    }
+
+    // Note: UpdatePlayerCell() already redraws players step-by-step during Play mode.
   }
 }
 

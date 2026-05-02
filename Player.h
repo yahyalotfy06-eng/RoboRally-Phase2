@@ -48,6 +48,7 @@ public:
 	Direction GetDirection() const;
 	void      SetDirection(Direction d);
 	void ResetPlayer(Grid* pGrid);
+	int  GetPlayerNum() const; // Returns the player's index (0-based)
 	///TODO: Add more setters/getters here as needed
 
 	// ====== Saved Commands ======

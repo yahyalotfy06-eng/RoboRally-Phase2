@@ -26,6 +26,8 @@ void Player::SetHealth(int h) {
 }
 int Player::GetHealth() const { return health; }
 
+int Player::GetPlayerNum() const { return playerNum; }
+
 Direction Player::GetDirection() const { return currDirection; }
 void Player::SetDirection(Direction d) { currDirection = d; }
 
@@ -206,16 +208,15 @@ void Player::Move(Grid *pGrid, GameState *pState) {
 
         pGrid->UpdatePlayerCell(this, currentPos);
 
-
-
         GameObject* obj = pCell->GetGameObject();//execute any game object the player passes on-----yahya
         if (obj)
         {
             obj->Apply(pGrid, pState, this);
+
+            // If the game object ended the game (WaterPit, Flag, etc.), stop immediately
+            if (pState->GetEndGame())
+                return;
         }
-
-
-
 
         pGrid->UpdateInterface(pState);
 

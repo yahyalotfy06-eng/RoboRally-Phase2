@@ -6,12 +6,18 @@
 #include "AddBeltAction.h"
 #include "AddFlagAction.h"
 #include "AddRotatingGearAction.h"
+#include "AddWaterPitAction.h"
+#include "AddDangerZoneAction.h"
+#include "AddWorkshopAction.h"
+#include "LoadGridAction.h"
 #include "ExecuteCommandAction.h" //included new class to execute commands------yahya
+#include "NewGameAction.h"
+#include "RebootRepairAction.h"
+#include "SaveGridAction.h"
 #include "SelectCommandAction.h" //included new class to select commands-----yahya
 #include "SwitchToDesignModeAction.h"
 #include "SwitchToPlayModeAction.h"
-#include "SaveGridAction.h"
-#include "NewGameAction.h"
+
 
 /// TODO: Add #include for all action types
 
@@ -38,7 +44,7 @@ ApplicationManager::~ApplicationManager() {
 
 //==================================================================================//
 //								Interface
-//Management Functions						//
+// Management Functions						//
 //==================================================================================//
 
 Grid *ApplicationManager::GetGrid() const { return pGrid; }
@@ -52,7 +58,7 @@ void ApplicationManager::UpdateInterface() const {
 
 //==================================================================================//
 //								Actions Related
-//Functions							//
+// Functions							//
 //==================================================================================//
 
 ActionType ApplicationManager::GetUserAction() const {
@@ -91,9 +97,25 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
   case EXIT:
     break;
 
-  case SAVE_GRID:    //shahd 
-      pAct = new SaveGridAction(this);
-      break;
+  case ADD_WATER_PIT:
+    pAct = new AddWaterPitAction(this);
+    break;
+
+  case ADD_DANGER_ZONE:
+    pAct = new AddDangerZoneAction(this);
+    break;
+
+  case ADD_WORKSHOP:
+    pAct = new AddWorkShopAction(this);
+    break;
+
+  case SAVE_GRID: // shahd
+    pAct = new SaveGridAction(this);
+    break;
+
+  case LOAD_GRID:
+    pAct = new LoadGridAction(this);
+    break;
 
     /// TODO: Add a case for EACH remaining Design Mode action type
 
@@ -112,9 +134,13 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
                                            // action to be implemented----yahya
     break;
 
-  case NEW_GAME:         //shahd
-      pAct = new NewGameAction(this);
-      break;
+  case REBOOT_REPAIR:
+    pAct = new RebootRepairAction(this);
+    break;
+
+  case NEW_GAME: // shahd
+    pAct = new NewGameAction(this);
+    break;
 
   case STATUS: // a click on the status bar ==> no action
     return;

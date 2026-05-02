@@ -346,9 +346,9 @@ void Output::CreateCommandsBar(Command savedCommands[], int savedCommandsCount,
   CommandItemImages[MOVE_BACKWARD_THREE_STEPS] =
       "images\\MoveBackwardThreeCard.jpg";
 
-  CommandItemImages[ROTATE_CLOCKWISE] = "images\\RotateClockwiseCard.jpg";
+  CommandItemImages[ROTATE_CLOCKWISE] = "images\\RotateCounterClockwiseCard.jpg";
   CommandItemImages[ROTATE_COUNTERCLOCKWISE] =
-      "images\\RotateCounterClockwiseCard.jpg";
+      "images\\RotateClockwiseCard.jpg";
 
   DrawSavedCommands(savedCommands, savedCommandsCount, CommandItemImages);
   DrawAvailableCommands(availableCommands, availableCommandsCount,
