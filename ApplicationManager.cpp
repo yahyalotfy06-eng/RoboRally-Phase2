@@ -17,7 +17,7 @@
 #include "SelectCommandAction.h" //included new class to select commands-----yahya
 #include "SwitchToDesignModeAction.h"
 #include "SwitchToPlayModeAction.h"
-
+#include "DeleteObjectAction.h"
 
 /// TODO: Add #include for all action types
 
@@ -116,6 +116,10 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
   case LOAD_GRID:
     pAct = new LoadGridAction(this);
     break;
+
+  case DELETE_NODE:
+      pAct = new DeleteObjectAction(this);
+      break;
 
     /// TODO: Add a case for EACH remaining Design Mode action type
 

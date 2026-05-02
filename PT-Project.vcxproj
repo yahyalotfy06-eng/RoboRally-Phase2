@@ -134,6 +134,7 @@
     <ClCompile Include="AddDangerZoneAction.cpp" />
     <ClCompile Include="AddWaterPitAction.cpp" />
     <ClCompile Include="AddWorkshopAction.cpp" />
+    <ClCompile Include="DeleteObjectAction.cpp" />
     <ClCompile Include="LoadGridAction.cpp" />
     <ClCompile Include="NewGameAction.cpp" />
     <ClCompile Include="RebootRepairAction.cpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="AddDangerZoneAction.h" />
     <ClInclude Include="AddWaterPitAction.h" />
     <ClInclude Include="AddWorkshopAction.h" />
+    <ClInclude Include="DeleteObjectAction.h" />
     <ClInclude Include="LoadGridAction.h" />
     <ClInclude Include="NewGameAction.h" />
     <ClInclude Include="RebootRepairAction.h" />

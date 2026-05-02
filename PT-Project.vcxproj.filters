@@ -217,6 +217,8 @@
     <ClCompile Include="SaveGridAction.cpp" />
     <ClCompile Include="LoadGridAction.cpp" />
     <ClCompile Include="NewGameAction.cpp" />
+    <ClCompile Include="RebootRepairAction.cpp" />
+    <ClCompile Include="DeleteObjectAction.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMUgraphicsLib\auxil.h">
@@ -364,5 +366,7 @@
     <ClInclude Include="SaveGridAction.h" />
     <ClInclude Include="LoadGridAction.h" />
     <ClInclude Include="NewGameAction.h" />
+    <ClInclude Include="RebootRepairAction.h" />
+    <ClInclude Include="DeleteObjectAction.h" />
   </ItemGroup>
 </Project>

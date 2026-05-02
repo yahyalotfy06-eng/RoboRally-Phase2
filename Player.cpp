@@ -83,7 +83,7 @@ void Player::ClearDrawing(Output *pOut) const {
   /// cellColor (erases it)
 }
 
-void Player::ResetPlayer(Grid* pGrid)
+void Player::ResetPlayer(Grid* pGrid)    //shahd 
 {
     // Reset player to start cell
     Cell* pStartCell = pGrid->GetStartCell();

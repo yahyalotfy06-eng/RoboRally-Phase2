@@ -87,12 +87,22 @@ bool Grid::AddObjectToCell(GameObject* pNewObject)
     return true;
 }
 
+ //as objs were created by new in actions, f we need to delete them 3shan el memory
+
 void Grid::RemoveObjectFromCell(const CellPosition &pos) {
-  if (pos.IsValidCell()) {
-    // Note: deallocate the object here before NULLing if ownership requires it
-    CellList[pos.VCell()][pos.HCell()]->SetGameObject(NULL);
-  }
+  if (!pos.IsValidCell()) //prevention of accessing invalid loc
+      return;
+      Cell* pCell = CellList[pos.VCell()][pos.HCell()]; // accessing the needed cell in gird 
+
+     GameObject* pObj = pCell->GetGameObject(); //points to obj inside cell
+     //check existance of obj to delete.
+     if (pObj) // making sure cell has smth in 
+      {
+          delete pObj; //free memory
+          pCell->SetGameObject(NULL); //removes the cell pointer
+      }
 }
+
 
 void Grid::UpdatePlayerCell(Player *player, const CellPosition &newPosition) {
   player->ClearDrawing(pOut);
