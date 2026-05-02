@@ -105,7 +105,37 @@ void AddBeltAction::Execute()
 			}
 		}
 	}
+	int startH = startPos.HCell();
+	int startV = startPos.VCell();
+	int endH = endPos.HCell();
+	int endV = endPos.VCell();
 
+	// direction
+	int dh = (endH > startH) ? 1 : (endH < startH ? -1 : 0);
+	int dv = (endV > startV) ? 1 : (endV < startV ? -1 : 0);
+
+	int h = startH;
+	int v = startV;
+
+	while (true)
+	{
+		CellPosition pos(v, h);
+
+		Belt* existing = pGrid->GetNextBelt(pos);
+
+		if (existing)
+		{
+			pGrid->PrintErrorMessage("Error: A belt already occupies this cell!");
+			return;
+		}
+
+		// stop when we reach end
+		if (h == endH && v == endV)
+			break;
+
+		h += dh;
+		v += dv;
+	}
 	// Create belt
 	Belt* pBelt = new Belt(startPos, endPos);
 

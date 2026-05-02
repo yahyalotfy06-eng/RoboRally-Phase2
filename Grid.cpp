@@ -1,5 +1,4 @@
 #include "Grid.h"
-
 #include "Belt.h"
 #include "Cell.h"
 #include "GameObject.h"
@@ -30,18 +29,62 @@ void Grid:: saveAll(ofstream& OutFile, GameObjectType type) {     //shahd
 
 // ========== Board Operations ==========
 
-bool Grid::AddObjectToCell(GameObject *pNewObject) {
-  CellPosition pos = pNewObject->GetPosition();
-  if (pos.IsValidCell()) {
-    GameObject *pPrevObject =
-        CellList[pos.VCell()][pos.HCell()]->GetGameObject();
-    if (pPrevObject) // cell already has an object
-      return false;
+bool Grid::AddObjectToCell(GameObject* pNewObject)
+{
+    CellPosition start = pNewObject->GetPosition();
 
-    CellList[pos.VCell()][pos.HCell()]->SetGameObject(pNewObject);
+    if (!start.IsValidCell())
+        return false;
+
+    Belt* belt = dynamic_cast<Belt*>(pNewObject);
+
+    // ===== CASE 1: BELT =====
+    if (belt)
+    {
+        CellPosition end = belt->GetEndPosition();
+
+        int startH = start.HCell();
+        int startV = start.VCell();
+        int endH = end.HCell();
+        int endV = end.VCell();
+
+        int dh = (endH > startH) ? 1 : (endH < startH ? -1 : 0);
+        int dv = (endV > startV) ? 1 : (endV < startV ? -1 : 0);
+
+        int h = startH;
+        int v = startV;
+
+        // 🔴 CHECK ALL CELLS FIRST
+        while (true)
+        {
+            if (CellList[v][h]->GetGameObject() != nullptr)
+                return false;
+
+            if (h == endH && v == endV)
+                break;
+
+            h += dh;
+            v += dv;
+        }
+
+        // 🟢 store ONLY in start cell
+        if (CellList[startV][startH]->GetGameObject() != nullptr)
+            return false;
+
+        CellList[startV][startH]->SetGameObject(pNewObject);
+        return true;
+
+        return true;
+    }
+
+    // ===== CASE 2: NORMAL OBJECT =====
+    GameObject* pPrevObject = CellList[start.VCell()][start.HCell()]->GetGameObject();
+
+    if (pPrevObject)
+        return false;
+
+    CellList[start.VCell()][start.HCell()]->SetGameObject(pNewObject);
     return true;
-  }
-  return false;
 }
 
 void Grid::RemoveObjectFromCell(const CellPosition &pos) {
