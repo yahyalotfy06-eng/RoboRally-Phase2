@@ -1,6 +1,7 @@
 #include "SwitchToDesignModeAction.h"
 #include "Grid.h"
 #include "Output.h"
+#include "GameState.h"
 
 SwitchToDesignModeAction::SwitchToDesignModeAction(ApplicationManager* pApp) : Action(pApp)
 {
@@ -26,6 +27,9 @@ void SwitchToDesignModeAction::Execute()
 	pManager->UpdateInterface();
 
 	///TODO: Add any cleanup needed when leaving Play Mode.
+	//in switch from play to design, game must be resett
+	GameState* pState = pManager->GetGameState();  //----shahd
+	pState->ResetGame(pGrid);
 }
 
 SwitchToDesignModeAction::~SwitchToDesignModeAction()
