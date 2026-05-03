@@ -55,3 +55,6 @@ void DangerZone::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 DangerZone::~DangerZone()
 {
 }
+
+
+

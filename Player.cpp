@@ -7,6 +7,12 @@ Player::Player(Cell *pCell, int playerNum)
     : playerNum(playerNum), health(10), currDirection(RIGHT),
       savedCommandCount(0) {
   this->pCell = pCell;
+  
+  hasExtendedMemory = false;
+  hasToolkit = false;
+  hasHackDevice = false;
+  laserDamage = 1;
+  isHacked = false;
 
   // Initialise saved commands to NO_COMMAND
   for (int i = 0; i < MaxSavedCommands; i++)
@@ -32,6 +38,17 @@ int Player::GetPlayerNum() const { return playerNum; }
 
 Direction Player::GetDirection() const { return currDirection; }
 void Player::SetDirection(Direction d) { currDirection = d; }
+
+void Player::SetExtendedMemory(bool value) { hasExtendedMemory = value; }
+bool Player::HasExtendedMemory() const { return hasExtendedMemory; }
+void Player::SetToolkit(bool value) { hasToolkit = value; }
+bool Player::HasToolkit() const { return hasToolkit; }
+void Player::SetHackDevice(bool value) { hasHackDevice = value; }
+bool Player::HasHackDevice() const { return hasHackDevice; }
+void Player::SetLaserDamage(int damage) { laserDamage = damage; }
+int Player::GetLaserDamage() const { return laserDamage; }
+void Player::SetHacked(bool value) { isHacked = value; }
+bool Player::IsHacked() const { return isHacked; }
 
 // ====== Saved Commands ======
 
@@ -99,6 +116,12 @@ void Player::ResetPlayer(Grid *pGrid) // shahd
 
   // Clear commands
   ClearSavedCommands();
+  
+  hasExtendedMemory = false;
+  hasToolkit = false;
+  hasHackDevice = false;
+  laserDamage = 1;
+  isHacked = false;
 }
 
 // ====== Game Logic ======
@@ -269,6 +292,6 @@ void Player::AppendPlayerInfo(string &playersInfo) const {
     break;
   }
 
-  playersInfo += "P" + to_string(playerNum) + "(Dir: " + dirText +
-                 ", Health: " + to_string(health) + ")";
+  playersInfo += "P" + to_string(playerNum) + "(D: " + dirText +
+                 ", HP: " + to_string(health) + ")";
 }

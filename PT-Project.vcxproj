@@ -144,6 +144,11 @@
     <ClCompile Include="SelectCommandAction.cpp" />
     <ClCompile Include="ExecuteCommandAction.cpp" />
     <ClCompile Include="AddFlagAction.cpp" />
+    <ClCompile Include="CopyAction.cpp" />
+    <ClCompile Include="CutAction.cpp" />
+    <ClCompile Include="PasteAction.cpp" />
+    <ClCompile Include="UseToolkitAction.cpp" />
+    <ClCompile Include="UseHackDeviceAction.cpp" />
     <ClCompile Include="AddRotatingGearAction.cpp" />
     <ClCompile Include="Antenna.cpp" />
     <ClCompile Include="ApplicationManager.cpp" />
@@ -216,6 +221,11 @@
     <ClInclude Include="SelectCommandAction.h" />
     <ClInclude Include="ExecuteCommandAction.h" />
     <ClInclude Include="AddFlagAction.h" />
+    <ClInclude Include="CopyAction.h" />
+    <ClInclude Include="CutAction.h" />
+    <ClInclude Include="PasteAction.h" />
+    <ClInclude Include="UseToolkitAction.h" />
+    <ClInclude Include="UseHackDeviceAction.h" />
     <ClInclude Include="AddRotatingGearAction.h" />
     <ClInclude Include="Antenna.h" />
     <ClInclude Include="ApplicationManager.h" />

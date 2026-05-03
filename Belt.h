@@ -9,6 +9,8 @@ class Belt: public GameObject
 	CellPosition endCellPos; // here is the belt's End Cell Position
 public:
 	Belt(const CellPosition & startCellPos, const CellPosition & endCellPos); // A constructor for initialization
+	virtual GameObject* Clone() const override { return new Belt(*this); }
+	virtual void SetPosition(const CellPosition& pos) override;
 	virtual void Draw(Output* pOut) const; // Draws a belt from its start cell to its end cell
 
 	virtual void Apply(Grid* pGrid, GameState* pState, Player* pPlayer); // Applies the effect of the belt by moving player to belt's end cell

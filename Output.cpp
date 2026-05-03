@@ -311,6 +311,8 @@ void Output::CreatePlayModeToolBar() const {
   MenuItemImages[ITM_SET_TURN] = "images\\Menu_SetTurn.jpg";
   MenuItemImages[ITM_REBOOT_REPAIR] = "images\\Menu_RebootRepair.jpg";
   MenuItemImages[ITM_NEW_GAME] = "images\\Menu_NewGame.jpg";
+  MenuItemImages[ITM_USE_TOOLKIT] = "images\\CommandSlot-grey.jpg";
+  MenuItemImages[ITM_USE_HACK_DEVICE] = "images\\CommandSlot-grey.jpg";
   MenuItemImages[ITM_EXIT_PLAY] = "images\\Menu_Exit.jpg";
 
 
@@ -447,7 +449,8 @@ void Output::PrintPlayersInfo(string info) {
 
   // Set the pen and font before drawing the string on the window
   pWind->SetPen(UI.PlayerInfoColor);
-  pWind->SetFont(20, BOLD, BY_NAME, "Verdana");
+  int fontSize = 20;
+  pWind->SetFont(fontSize, BOLD, BY_NAME, "Verdana");
 
   int w = 0, h = 0;
 
@@ -456,10 +459,28 @@ void Output::PrintPlayersInfo(string info) {
   //variables with its width and height
   pWind->GetStringSize(w, h, info);
 
+  // Prevent overlap with icons
+  int iconsEnd = PLAY_ITM_COUNT * UI.MenuItemWidth;
+  int availableWidth = UI.width - iconsEnd - 30; // 30px padding
+
+  if (w > availableWidth) {
+    fontSize = 16;
+    pWind->SetFont(fontSize, BOLD, BY_NAME, "Verdana");
+    pWind->GetStringSize(w, h, info);
+  }
+
+  if (w > availableWidth) {
+    fontSize = 12;
+    pWind->SetFont(fontSize, BOLD, BY_NAME, "Verdana");
+    pWind->GetStringSize(w, h, info);
+  }
+
   // Set the start X & Y coordinate of drawing the string
   int x = UI.width - w - 20; // space 20 before the right-side of the window
-  // ( - w ) because x is the coordinate of the start point of the string (upper
-  // left)
+  // Ensure it doesn't overlap the icons
+  if (x < iconsEnd + 10)
+    x = iconsEnd + 10;
+
   int y = (UI.ToolBarHeight - h) / 2; // in the Middle of the toolbar height
   pWind->DrawString(x, y, info);
 }

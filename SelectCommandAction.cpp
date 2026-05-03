@@ -26,7 +26,8 @@ void SelectCommandAction::Execute() {
     return;
   }
 
-  if (pPlayer->GetSavedCommandCount() >= MaxSavedCommands) {
+  int maxCommands = pPlayer->HasExtendedMemory() ? 6 : 5;
+  if (pPlayer->GetSavedCommandCount() >= maxCommands) {
     pOut->PrintMessage(
         "Max saved commands reached! You must execute them now.");
     return;

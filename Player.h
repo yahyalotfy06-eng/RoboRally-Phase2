@@ -25,13 +25,14 @@ class Player
 
 	// ---- [OPTIONAL BONUS] Shooting Phase data members ----
 	// Uncomment when adding the shooting phase (see DEFS.h PhaseType):
-	//   int laserDamage; // damage per shot (default = 1; double-laser consumable = 2)
-	//   bool isHacked;   // true = this player skips their turn this round
+	int laserDamage; // damage per shot (default = 1; double-laser consumable = 2)
+	bool isHacked;   // true = this player skips their turn this round
 
 	// ---- [OPTIONAL BONUS] Workshop Consumables data members ----
 	// Uncomment when adding consumables (see Workshop.h):
-	//   Consumable* inventory[MaxConsumables];
-	//   int inventoryCount;
+	bool hasExtendedMemory;
+	bool hasToolkit;
+	bool hasHackDevice;
 
 public:
 
@@ -50,6 +51,16 @@ public:
 	void ResetPlayer(Grid* pGrid);
 	int  GetPlayerNum() const; // Returns the player's index (0-based)
 	///TODO: Add more setters/getters here as needed
+	void SetExtendedMemory(bool value);
+	bool HasExtendedMemory() const;
+	void SetToolkit(bool value);
+	bool HasToolkit() const;
+	void SetHackDevice(bool value);
+	bool HasHackDevice() const;
+	void SetLaserDamage(int damage);
+	int GetLaserDamage() const;
+	void SetHacked(bool value);
+	bool IsHacked() const;
 
 	// ====== Saved Commands ======
 

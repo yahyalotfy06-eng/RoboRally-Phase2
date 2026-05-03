@@ -47,8 +47,6 @@ void AddBeltAction::Execute()
 		return;
 	}
 
-	bool newHorizontal = (startPos.VCell() == endPos.VCell());
-
 	for (int i = 0; i < NumVerticalCells; i++)
 	{
 		for (int j = 0; j < NumHorizontalCells; j++)
@@ -62,46 +60,10 @@ void AddBeltAction::Execute()
 			CellPosition s = existing->GetPosition();
 			CellPosition e = existing->GetEndPosition();
 
-			bool existHorizontal = (s.VCell() == e.VCell());
-
-			// -------- Horizontal belts --------
-			if (newHorizontal && existHorizontal)
+			if (endPos.GetCellNum() == s.GetCellNum() || startPos.GetCellNum() == e.GetCellNum())
 			{
-				if (startPos.VCell() == s.VCell()) // same row
-				{
-					int newStart = min(startPos.HCell(), endPos.HCell());
-					int newEnd = max(startPos.HCell(), endPos.HCell());
-
-					int exStart = min(s.HCell(), e.HCell());
-					int exEnd = max(s.HCell(), e.HCell());
-
-					// reject overlap OR touching
-					if (!(newEnd < exStart - 1 || exEnd < newStart - 1))
-					{
-						pGrid->PrintErrorMessage("Error: Belts cannot overlap or touch on the same row!");
-						return;
-					}
-				}
-			}
-
-			// -------- Vertical belts --------
-			else if (!newHorizontal && !existHorizontal)
-			{
-				if (startPos.HCell() == s.HCell()) // same column
-				{
-					int newStart = min(startPos.VCell(), endPos.VCell());
-					int newEnd = max(startPos.VCell(), endPos.VCell());
-
-					int exStart = min(s.VCell(), e.VCell());
-					int exEnd = max(s.VCell(), e.VCell());
-
-					// reject overlap OR touching
-					if (!(newEnd < exStart - 1 || exEnd < newStart - 1))
-					{
-						pGrid->PrintErrorMessage("Error: Belts cannot overlap or touch on the same column!");
-						return;
-					}
-				}
+				pGrid->PrintErrorMessage("Error: End of a belt cannot be on the start of another! Click to continue ...");
+				return;
 			}
 		}
 	}

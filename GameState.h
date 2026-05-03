@@ -76,6 +76,7 @@ public:
   // [OPTIONAL BONUS] To add PHASE_SHOOTING, update this function body:
   //   MOVEMENT --> SHOOTING --> MOVEMENT
   void AdvancePhase();
+  void ExecuteShootingPhase(Grid* pGrid);
 
   // ========== End-Game ==========
   void ResetGame(Grid *pGrid);

@@ -9,6 +9,7 @@ class Workshop : public GameObject
 {
 public:
 	Workshop(const CellPosition & workshopPosition);
+	virtual GameObject* Clone() const override { return new Workshop(*this); }
 	virtual void Draw(Output* pOut) const; // Draws workshop
 
 	virtual void Apply(Grid* pGrid, GameState* pState, Player* pPlayer); // Applies the effect of the workshop
@@ -18,4 +19,3 @@ public:
 
 	~Workshop();
 };
-

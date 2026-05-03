@@ -18,6 +18,11 @@
 #include "SwitchToDesignModeAction.h"
 #include "SwitchToPlayModeAction.h"
 #include "DeleteObjectAction.h"
+#include "UseToolkitAction.h"
+#include "UseHackDeviceAction.h"
+#include "CopyAction.h"
+#include "CutAction.h"
+#include "PasteAction.h"
 
 /// TODO: Add #include for all action types
 
@@ -121,6 +126,18 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
       pAct = new DeleteObjectAction(this);
       break;
 
+  case COPY_NODE:
+      pAct = new CopyAction(this);
+      break;
+
+  case CUT_NODE:
+      pAct = new CutAction(this);
+      break;
+
+  case PASTE_NODE:
+      pAct = new PasteAction(this);
+      break;
+
     /// TODO: Add a case for EACH remaining Design Mode action type
 
   case TO_DESIGN_MODE:
@@ -144,6 +161,14 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
 
   case NEW_GAME: // shahd
     pAct = new NewGameAction(this);
+    break;
+
+  case USE_TOOLKIT_ACTION:
+    pAct = new UseToolkitAction(this);
+    break;
+
+  case USE_HACK_DEVICE_ACTION:
+    pAct = new UseHackDeviceAction(this);
     break;
 
   case STATUS: // a click on the status bar ==> no action

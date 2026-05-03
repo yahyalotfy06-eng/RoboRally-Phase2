@@ -196,6 +196,21 @@
     <ClCompile Include="AddFlagAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
+    <ClCompile Include="CopyAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="CutAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="PasteAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="UseToolkitAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="UseHackDeviceAction.cpp">
+      <Filter>Actions</Filter>
+    </ClCompile>
     <ClCompile Include="AddRotatingGearAction.cpp">
       <Filter>Actions</Filter>
     </ClCompile>
@@ -339,6 +354,21 @@
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="AddFlagAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="CutAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="PasteAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="UseToolkitAction.h">
+      <Filter>Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="UseHackDeviceAction.h">
       <Filter>Actions</Filter>
     </ClInclude>
     <ClInclude Include="AddRotatingGearAction.h">

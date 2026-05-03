@@ -140,6 +140,8 @@ ActionType Input::GetUserAction() const
 				case ITM_SELECT_COMMAND: return SELECT_COMMAND;
 				case ITM_REBOOT_REPAIR: return REBOOT_REPAIR;
 				case ITM_NEW_GAME: return NEW_GAME;
+				case ITM_USE_TOOLKIT: return USE_TOOLKIT_ACTION;
+				case ITM_USE_HACK_DEVICE: return USE_HACK_DEVICE_ACTION;
 				case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;
 				case ITM_EXIT_PLAY: return EXIT;
 				default: return EMPTY;

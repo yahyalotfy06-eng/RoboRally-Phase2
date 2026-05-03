@@ -39,6 +39,7 @@ bool Grid::AddObjectToCell(GameObject *pNewObject) {
   // ===== CASE 1: BELT =====
   if (belt) {
     CellPosition end = belt->GetEndPosition();
+    if (!end.IsValidCell()) return false;
 
     int startH = start.HCell();
     int startV = start.VCell();
@@ -53,8 +54,12 @@ bool Grid::AddObjectToCell(GameObject *pNewObject) {
 
     // 🔴 CHECK ALL CELLS FIRST
     while (true) {
-      if (CellList[v][h]->GetGameObject() != nullptr)
-        return false;
+      GameObject* pObj = CellList[v][h]->GetGameObject();
+      if (pObj != nullptr) {
+        Belt* pExistingBelt = dynamic_cast<Belt*>(pObj);
+        if (!pExistingBelt)
+          return false;
+      }
 
       if (h == endH && v == endV)
         break;
@@ -132,6 +137,7 @@ Input *Grid::GetInput() const { return pIn; }
 Output *Grid::GetOutput() const { return pOut; }
 
 void Grid::SetClipboard(GameObject *gameObject) {
+  if (Clipboard) delete Clipboard;
   Clipboard = gameObject;
 } // to be used in copy/cut
 GameObject *Grid::GetClipboard() const {

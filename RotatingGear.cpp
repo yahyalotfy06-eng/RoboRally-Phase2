@@ -78,3 +78,6 @@ bool RotatingGear::GetisClockWise() const
 RotatingGear::~RotatingGear()
 {
 }
+
+
+

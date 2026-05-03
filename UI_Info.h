@@ -11,7 +11,7 @@
 #define NumVerticalCells 5
 #define MaxPlayerCount 2
 #define MaxAvailableCommands 10
-#define MaxSavedCommands 5
+#define MaxSavedCommands 6
 
 enum GUI_MODE		// Graphical user interface mode
 {
@@ -55,6 +55,8 @@ enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
 	ITM_SET_TURN,		//start of added items
 	ITM_REBOOT_REPAIR,
 	ITM_NEW_GAME,
+	ITM_USE_TOOLKIT,
+	ITM_USE_HACK_DEVICE,
 	ITM_EXIT_PLAY,		//end of added items
 
 	PLAY_ITM_COUNT		// no. of items ==> This should be the last line in this enum

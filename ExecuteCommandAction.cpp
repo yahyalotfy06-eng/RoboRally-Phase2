@@ -22,8 +22,18 @@ void ExecuteCommandAction::Execute() {
   // Execute only the current player's saved commands, then pass the turn
   Player *pPlayer = pGameState->GetCurrentPlayer();
   if (pPlayer) {
-    pPlayer->Move(pGrid, pGameState);
+    if (pPlayer->IsHacked()) {
+      pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) + " is hacked and will skip this round! Click to continue...");
+      pPlayer->SetHacked(false);
+    } else {
+      pPlayer->Move(pGrid, pGameState);
+    }
     pPlayer->ClearSavedCommands();
+  }
+
+  // Trigger Shooting Phase after movement
+  if (!pGameState->GetEndGame()) {
+    pGameState->ExecuteShootingPhase(pGrid);
   }
 
   if (!pGameState->GetEndGame()) {

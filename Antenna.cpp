@@ -71,3 +71,6 @@ void Antenna::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {
 }
 
 Antenna::~Antenna() {}
+
+
+

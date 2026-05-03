@@ -38,6 +38,8 @@ enum ActionType // The actions supported (add more as needed)
 	///TODO: Add more action types of Play Mode
 	SET_TURN,	//start of added items
 	REBOOT_REPAIR,
+	USE_TOOLKIT_ACTION,
+	USE_HACK_DEVICE_ACTION,
 
 
 	//  [3] Others
@@ -59,6 +61,14 @@ enum PhaseType // Phases of the game
 {
 	PHASE_MOVEMENT,
 	PHASE_SHOOTING // [OPTIONAL BONUS]
+};
+
+enum ConsumableType {
+	ITEM_NONE,
+	ITEM_EXTENDED_MEMORY,
+	ITEM_TOOLKIT,
+	ITEM_HACK_DEVICE,
+	ITEM_DOUBLE_LASER
 };
 
 enum Command
