@@ -25,14 +25,16 @@ void SwitchToPlayModeAction::Execute()
 	// 2. Redraw the toolbar with Play Mode buttons
 	pOut->CreatePlayModeToolBar();
 
-	// 3. Reset game state for the new play session
-	pState->SetCurrentPhase(PHASE_MOVEMENT);
+	// 3. Reset game state for the new play session ----shahd
+	Grid* pGrid = pManager->GetGrid(); //get grid obj to know 
+	pState->ResetGame(pGrid); 
+	//the todo is to reset the game
 
 	// 4. Redraw the full interface (board + player info bar)
 	pManager->UpdateInterface();
 
 	///TODO: Add any other initialisation needed when entering Play Mode.
-
+	 
 	// === Display Random Commands in the Commands Bar ===
 	// Build the full list of all real commands (skip NO_COMMAND at index 0)
 	Command allCommands[COMMANDS_COUNT - 1];

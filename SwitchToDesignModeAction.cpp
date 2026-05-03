@@ -1,3 +1,4 @@
+
 #include "SwitchToDesignModeAction.h"
 #include "Grid.h"
 #include "Output.h"
@@ -21,15 +22,12 @@ void SwitchToDesignModeAction::Execute()
 	UI.InterfaceMode = MODE_DESIGN;
 
 	// 2. Redraw the toolbar with Design Mode buttons
-	pOut->CreateDesignModeToolBar();
+	pOut->CreateDesignModeToolBar(); //updates toolbar
 
 	// 3. Update the full interface so the grid is redrawn
 	pManager->UpdateInterface();
 
 	///TODO: Add any cleanup needed when leaving Play Mode.
-	//in switch from play to design, game must be resett
-	GameState* pState = pManager->GetGameState();  //----shahd
-	pState->ResetGame(pGrid);
 }
 
 SwitchToDesignModeAction::~SwitchToDesignModeAction()
