@@ -1,27 +1,26 @@
 #pragma once
 #include "Action.h"
+#include "Flag.h"
 #include "Input.h"
 #include "Output.h"
-#include "Flag.h"
-class AddFlagAction :public Action
-{
-	// Always add action parameters as private data members
 
-	// [Action Parameters]
-	CellPosition flagPos; // 1- The position of the flag
+class AddFlagAction : public Action {
+  // Always add action parameters as private data members
 
-	static bool isFlagAdded;
+  // [Action Parameters]
+  CellPosition flagPos; // 1- The position of the flag
+
+  static bool isFlagAdded;
 
 public:
-	
-	AddFlagAction(ApplicationManager *pApp);
-	virtual void ReadActionParameters(); // Reads action parameters 
+  AddFlagAction(ApplicationManager *pApp);
+  virtual void ReadActionParameters(); // Reads action parameters
 
-	static void resetisflag();
+  static void resetisflag();
 
-	virtual void Execute(); // Creates a new flag Object 
-							// then Sets this flag object to the GameObject Pointer of its Cell
+  virtual void
+  Execute(); // Creates a new flag Object
+             // then Sets this flag object to the GameObject Pointer of its Cell
 
-	~AddFlagAction();
+  ~AddFlagAction();
 };
-

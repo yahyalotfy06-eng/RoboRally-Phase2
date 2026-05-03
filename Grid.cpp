@@ -15,94 +15,92 @@ Grid::Grid(Input *pIn, Output *pOut) : pIn(pIn), pOut(pOut) {
   Clipboard = NULL;
 }
 
-void Grid:: saveAll(ofstream& OutFile, GameObjectType type) {     //shahd
-    for (int i = NumVerticalCells - 1; i >= 0; i--) {
-        for (int j = 0; j < NumHorizontalCells; j++) {
-            GameObject* pObject = CellList[i][j]->GetGameObject();
-            if (pObject != nullptr) {
-                pObject->Save(OutFile, type);  //save is called depend on obj type
-            }
-        }
+void Grid::saveAll(ofstream &OutFile, GameObjectType type) { // shahd
+  for (int i = NumVerticalCells - 1; i >= 0; i--) {
+    for (int j = 0; j < NumHorizontalCells; j++) {
+      GameObject *pObject = CellList[i][j]->GetGameObject();
+      if (pObject != nullptr) {
+        pObject->Save(OutFile, type); // save is called depend on obj type
+      }
     }
+  }
 }
-
 
 // ========== Board Operations ==========
 
-bool Grid::AddObjectToCell(GameObject* pNewObject)
-{
-    CellPosition start = pNewObject->GetPosition();
+bool Grid::AddObjectToCell(GameObject *pNewObject) {
+  CellPosition start = pNewObject->GetPosition();
 
-    if (!start.IsValidCell())
+  if (!start.IsValidCell())
+    return false;
+
+  Belt *belt = dynamic_cast<Belt *>(pNewObject);
+
+  // ===== CASE 1: BELT =====
+  if (belt) {
+    CellPosition end = belt->GetEndPosition();
+
+    int startH = start.HCell();
+    int startV = start.VCell();
+    int endH = end.HCell();
+    int endV = end.VCell();
+
+    int dh = (endH > startH) ? 1 : (endH < startH ? -1 : 0);
+    int dv = (endV > startV) ? 1 : (endV < startV ? -1 : 0);
+
+    int h = startH;
+    int v = startV;
+
+    // 🔴 CHECK ALL CELLS FIRST
+    while (true) {
+      if (CellList[v][h]->GetGameObject() != nullptr)
         return false;
 
-    Belt* belt = dynamic_cast<Belt*>(pNewObject);
+      if (h == endH && v == endV)
+        break;
 
-    // ===== CASE 1: BELT =====
-    if (belt)
-    {
-        CellPosition end = belt->GetEndPosition();
-
-        int startH = start.HCell();
-        int startV = start.VCell();
-        int endH = end.HCell();
-        int endV = end.VCell();
-
-        int dh = (endH > startH) ? 1 : (endH < startH ? -1 : 0);
-        int dv = (endV > startV) ? 1 : (endV < startV ? -1 : 0);
-
-        int h = startH;
-        int v = startV;
-
-        // 🔴 CHECK ALL CELLS FIRST
-        while (true)
-        {
-            if (CellList[v][h]->GetGameObject() != nullptr)
-                return false;
-
-            if (h == endH && v == endV)
-                break;
-
-            h += dh;
-            v += dv;
-        }
-
-        // 🟢 store ONLY in start cell
-        if (CellList[startV][startH]->GetGameObject() != nullptr)
-            return false;
-
-        CellList[startV][startH]->SetGameObject(pNewObject);
-        return true;
-
-        return true;
+      h += dh;
+      v += dv;
     }
 
-    // ===== CASE 2: NORMAL OBJECT =====
-    GameObject* pPrevObject = CellList[start.VCell()][start.HCell()]->GetGameObject();
+    // 🟢 store ONLY in start cell
+    if (CellList[startV][startH]->GetGameObject() != nullptr)
+      return false;
 
-    if (pPrevObject)
-        return false;
-
-    CellList[start.VCell()][start.HCell()]->SetGameObject(pNewObject);
+    CellList[startV][startH]->SetGameObject(pNewObject);
     return true;
+
+    return true;
+  }
+
+  // ===== CASE 2: NORMAL OBJECT =====
+  GameObject *pPrevObject =
+      CellList[start.VCell()][start.HCell()]->GetGameObject();
+
+  if (pPrevObject)
+    return false;
+
+  CellList[start.VCell()][start.HCell()]->SetGameObject(pNewObject);
+  return true;
 }
 
- //as objs were created by new in actions, f we need to delete them 3shan el memory
+// as objs were created by new in actions, f we need to delete them 3shan el
+// memory
 
 void Grid::RemoveObjectFromCell(const CellPosition &pos) {
-  if (!pos.IsValidCell()) //prevention of accessing invalid loc
-      return;
-      Cell* pCell = CellList[pos.VCell()][pos.HCell()]; // accessing the needed cell in gird 
+  if (!pos.IsValidCell()) // prevention of accessing invalid loc
+    return;
+  Cell *pCell =
+      CellList[pos.VCell()][pos.HCell()]; // accessing the needed cell in gird
 
-     GameObject* pObj = pCell->GetGameObject(); //points to obj inside cell
-     //check existance of obj to delete.
-     if (pObj) // making sure cell has smth in 
-      {
-          delete pObj; //free memory
-          pCell->SetGameObject(NULL); //removes the cell pointer
-      }
+  GameObject *pObj = pCell->GetGameObject(); // points to obj inside cell
+  // check existance of obj to delete.
+  if (pObj) // making sure cell has smth in
+  {
+    delete pObj;                // free memory
+    pCell->SetGameObject(NULL); // removes the cell pointer
+  }
 }
-
 
 void Grid::UpdatePlayerCell(Player *player, const CellPosition &newPosition) {
   player->ClearDrawing(pOut);
@@ -144,21 +142,19 @@ Cell *Grid::GetStartCell() const {
   // Players start at the bottom-left cell of the board
   return CellList[NumVerticalCells - 1][0];
 }
-Cell* Grid::GetCell(const CellPosition& pos) const
-{
-    if (!pos.IsValidCell())
-        return nullptr;
+Cell *Grid::GetCell(const CellPosition &pos) const {
+  if (!pos.IsValidCell())
+    return nullptr;
 
-    return CellList[pos.VCell()][pos.HCell()];
+  return CellList[pos.VCell()][pos.HCell()];
 }
 
-bool Grid::IsCellEmpty(const CellPosition& pos) const
-{
-    Cell* pCell = GetCell(pos);
-    if (!pCell)
-        return false;
+bool Grid::IsCellEmpty(const CellPosition &pos) const {
+  Cell *pCell = GetCell(pos);
+  if (!pCell)
+    return false;
 
-    return (pCell->GetGameObject() == nullptr);
+  return (pCell->GetGameObject() == nullptr);
 }
 
 // ========== User Interface ==========
@@ -186,10 +182,10 @@ void Grid::UpdateInterface(const GameState *pState) const {
     pState->AppendPlayersInfo(playersInfo);
     pOut->PrintPlayersInfo(playersInfo);
 
-    // Redraw the commands bar: saved commands (left) + available commands (right)
-    Player* pCurrent = pState->GetCurrentPlayer();
-    if (pCurrent)
-    {
+    // Redraw the commands bar: saved commands (left) + available commands
+    // (right)
+    Player *pCurrent = pState->GetCurrentPlayer();
+    if (pCurrent) {
       // Build saved commands array from the current player
       int savedCount = pCurrent->GetSavedCommandCount();
       Command savedCmds[MaxSavedCommands];
@@ -198,14 +194,15 @@ void Grid::UpdateInterface(const GameState *pState) const {
 
       // Get available commands from GameState
       int availCount = pState->GetAvailableCommandsCount();
-      Command availCmds[COMMANDS_COUNT];
+      Command availCmds[MaxAvailableCommands];
       for (int i = 0; i < availCount; i++)
         availCmds[i] = pState->GetAvailableCommand(i);
 
       pOut->CreateCommandsBar(savedCmds, savedCount, availCmds, availCount);
     }
 
-    // Note: UpdatePlayerCell() already redraws players step-by-step during Play mode.
+    // Note: UpdatePlayerCell() already redraws players step-by-step during Play
+    // mode.
   }
 }
 
@@ -226,48 +223,51 @@ Grid::~Grid() {
 
   // Players are owned by GameState -- do NOT delete them here.
 }
-//query
-int Grid::GetCellTypeCount(GameObjectType type) {     //shahd
-    int count = 0;
-    for (int i = NumVerticalCells - 1; i >= 0; i--)
-        for (int j = 0; j < NumHorizontalCells; j++) {
-            switch (type) {
-            case FLAG_TYPE:
-                if (CellList[i][j]->HasFlag() != nullptr) {
-                    ++count;
-                }
-                break;
-            case WATERPIT_TYPE:
-                if (CellList[i][j]->HasWaterPit() != nullptr) {
-                    ++count;
-                }
-                break;
-            case DANGERZONE_TYPE:
-                if (CellList[i][j]->HasDangerZone() != nullptr) {
-                    ++count;
-                }
-                break;
-            case BELT_TYPE:
-                if (CellList[i][j]->HasBelt() != nullptr) {
-                    ++count;
-                }
-                break;
-            case WORKSHOP_TYPE:
-                if (CellList[i][j]->HasWorkshop() != nullptr) {
-                    ++count;
-                }
-                break;
-            case ANTENNA_TYPE:
-                if (CellList[i][j]->HasAntenna() != nullptr) {
-                    ++count;
-                } break;
-            case ROTATINGGEAR_TYPE:
-                if (CellList[i][j]->HasRotatingGear() != nullptr) {
-                    ++count;
-                } break;
-            default: break;
-            }
+// query
+int Grid::GetCellTypeCount(GameObjectType type) { // shahd
+  int count = 0;
+  for (int i = NumVerticalCells - 1; i >= 0; i--)
+    for (int j = 0; j < NumHorizontalCells; j++) {
+      switch (type) {
+      case FLAG_TYPE:
+        if (CellList[i][j]->HasFlag() != nullptr) {
+          ++count;
         }
+        break;
+      case WATERPIT_TYPE:
+        if (CellList[i][j]->HasWaterPit() != nullptr) {
+          ++count;
+        }
+        break;
+      case DANGERZONE_TYPE:
+        if (CellList[i][j]->HasDangerZone() != nullptr) {
+          ++count;
+        }
+        break;
+      case BELT_TYPE:
+        if (CellList[i][j]->HasBelt() != nullptr) {
+          ++count;
+        }
+        break;
+      case WORKSHOP_TYPE:
+        if (CellList[i][j]->HasWorkshop() != nullptr) {
+          ++count;
+        }
+        break;
+      case ANTENNA_TYPE:
+        if (CellList[i][j]->HasAntenna() != nullptr) {
+          ++count;
+        }
+        break;
+      case ROTATINGGEAR_TYPE:
+        if (CellList[i][j]->HasRotatingGear() != nullptr) {
+          ++count;
+        }
+        break;
+      default:
+        break;
+      }
+    }
 
-    return count;
+  return count;
 }

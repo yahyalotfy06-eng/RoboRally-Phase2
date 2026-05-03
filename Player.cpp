@@ -20,8 +20,10 @@ Cell *Player::GetCell() const { return pCell; }
 
 void Player::SetHealth(int h) {
   /// TODO: Add validation (e.g. clamp to 0..MaxHealth)
-  if (h < 0)  h = 0;   // clamp: health cannot go below 0
-  if (h > 10) h = 10;  // clamp: health cannot exceed max (10)
+  if (h < 0)
+    h = 0; // clamp: health cannot go below 0
+  if (h > 10)
+    h = 10; // clamp: health cannot exceed max (10)
   health = h;
 }
 int Player::GetHealth() const { return health; }
@@ -83,20 +85,20 @@ void Player::ClearDrawing(Output *pOut) const {
   /// cellColor (erases it)
 }
 
-void Player::ResetPlayer(Grid* pGrid)    //shahd 
+void Player::ResetPlayer(Grid *pGrid) // shahd
 {
-    // Reset player to start cell
-    Cell* pStartCell = pGrid->GetStartCell();
-    SetCell(pStartCell);
+  // Reset player to start cell
+  Cell *pStartCell = pGrid->GetStartCell();
+  SetCell(pStartCell);
 
-    // Reset health to 10
-    SetHealth(10);
+  // Reset health to 10
+  SetHealth(10);
 
-    // Reset direction to RIGHT
-    SetDirection(RIGHT);
+  // Reset direction to RIGHT
+  SetDirection(RIGHT);
 
-    // Clear commands
-    ClearSavedCommands();
+  // Clear commands
+  ClearSavedCommands();
 }
 
 // ====== Game Logic ======
@@ -142,6 +144,7 @@ void Player::Move(Grid *pGrid, GameState *pState) {
       backward = true;
       break;
     case ROTATE_CLOCKWISE:
+      this->ClearDrawing(pGrid->GetOutput());
       switch (currDirection) { // calculate the upcoming direction after
                                // rotation-----yahya
       case UP:
@@ -159,6 +162,7 @@ void Player::Move(Grid *pGrid, GameState *pState) {
       }
       break;
     case ROTATE_COUNTERCLOCKWISE:
+      this->ClearDrawing(pGrid->GetOutput());
       switch (currDirection) {
       case UP:
         currDirection = LEFT;
@@ -199,23 +203,33 @@ void Player::Move(Grid *pGrid, GameState *pState) {
         CellPosition currentPos = pCell->GetCellPosition();
         currentPos.AddCellNum(1, moveDir);
 
-        if (!currentPos.IsValidCell()) {//check if player fell off the grid-----yahya
-          pGrid->PrintErrorMessage("Player " + to_string(playerNum) + " fell off the board! Rebooting...");
-          SetHealth(health - 1); // use SetHealth so the 0..10 clamp is always applied
-          pGrid->UpdatePlayerCell(this, pGrid->GetStartCell()->GetCellPosition());
+        if (!currentPos.IsValidCell()) { // check if player fell off the
+                                         // grid-----yahya
+          pGrid->PrintErrorMessage("Player " + to_string(playerNum) +
+                                   " fell off the board! Rebooting...");
+          SetHealth(health -
+                    1); // use SetHealth so the 0..10 clamp is always applied
+          if (health == 0) {
+            pGrid->PrintErrorMessage("Player " + to_string(playerNum) + " has died! Game over. Click to continue...");
+            pState->SetEndGame(true);
+            return;
+          }
+          pGrid->UpdatePlayerCell(this,
+                                  pGrid->GetStartCell()->GetCellPosition());
           return;
         }
 
         pGrid->UpdatePlayerCell(this, currentPos);
 
-        GameObject* obj = pCell->GetGameObject();//execute any game object the player passes on-----yahya
-        if (obj)
-        {
-            obj->Apply(pGrid, pState, this);
+        GameObject *obj = pCell->GetGameObject(); // execute any game object the
+                                                  // player passes on-----yahya
+        if (obj && !pCell->HasWorkshop()) {
+          obj->Apply(pGrid, pState, this);
 
-            // If the game object ended the game (WaterPit, Flag, etc.), stop immediately
-            if (pState->GetEndGame())
-                return;
+          // If the game object ended the game (WaterPit, Flag, etc.), stop
+          // immediately
+          if (pState->GetEndGame())
+            return;
         }
 
         pGrid->UpdateInterface(pState);
@@ -223,12 +237,18 @@ void Player::Move(Grid *pGrid, GameState *pState) {
         pGrid->PrintErrorMessage("Step executed. Click to continue...");
       }
     } else {
-      this->ClearDrawing(pGrid->GetOutput());
       this->Draw(pGrid->GetOutput());
       pGrid->UpdateInterface(pState);
 
       pGrid->PrintErrorMessage("Rotation executed. Click to continue...");
     }
+  }
+
+  // After all commands are executed, apply the game object effect at the
+  // final cell if it is a Workshop.
+  if (!pState->GetEndGame() && pCell->HasWorkshop()) {
+    pCell->GetGameObject()->Apply(pGrid, pState, this);
+    pGrid->UpdateInterface(pState);
   }
 }
 

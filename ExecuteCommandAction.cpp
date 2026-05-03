@@ -26,8 +26,11 @@ void ExecuteCommandAction::Execute() {
     pPlayer->ClearSavedCommands();
   }
 
-  if (!pGameState->GetEndGame())
+  if (!pGameState->GetEndGame()) {
     pGameState->AdvanceCurrentPlayer();
+    pGameState->GenerateAvailableCommands();
+    pGrid->UpdateInterface(pGameState);
+  }
 }
 
 ExecuteCommandAction::~ExecuteCommandAction() {}
