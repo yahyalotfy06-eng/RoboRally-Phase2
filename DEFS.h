@@ -39,6 +39,8 @@ enum ActionType // The actions supported (add more as needed)
 	REBOOT_REPAIR, //start of added items
 	USE_TOOLKIT_ACTION,
 	USE_HACK_DEVICE_ACTION,
+	USE_EXTENDED_MEMORY,
+	USE_DOUBLE_LASER,
 
 
 	//  [3] Others

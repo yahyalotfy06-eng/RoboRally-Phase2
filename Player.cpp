@@ -179,24 +179,6 @@ void Player::Move(Grid *pGrid, GameState *pState) {
       break;
     case ROTATE_CLOCKWISE:
       this->ClearDrawing(pGrid->GetOutput());
-      switch (currDirection) { // calculate the upcoming direction after
-                               // rotation-----yahya
-      case UP:
-        currDirection = RIGHT;
-        break;
-      case RIGHT:
-        currDirection = DOWN;
-        break;
-      case DOWN:
-        currDirection = LEFT;
-        break;
-      case LEFT:
-        currDirection = UP;
-        break;
-      }
-      break;
-    case ROTATE_COUNTERCLOCKWISE:
-      this->ClearDrawing(pGrid->GetOutput());
       switch (currDirection) {
       case UP:
         currDirection = LEFT;
@@ -208,6 +190,23 @@ void Player::Move(Grid *pGrid, GameState *pState) {
         currDirection = RIGHT;
         break;
       case RIGHT:
+        currDirection = UP;
+        break;
+      }
+      break;
+    case ROTATE_COUNTERCLOCKWISE:
+      this->ClearDrawing(pGrid->GetOutput());
+      switch (currDirection) {
+      case UP:
+        currDirection = RIGHT;
+        break;
+      case RIGHT:
+        currDirection = DOWN;
+        break;
+      case DOWN:
+        currDirection = LEFT;
+        break;
+      case LEFT:
         currDirection = UP;
         break;
       }

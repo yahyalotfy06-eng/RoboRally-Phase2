@@ -141,6 +141,8 @@ ActionType Input::GetUserAction() const
 				case ITM_NEW_GAME: return NEW_GAME;
 				case ITM_USE_TOOLKIT: return USE_TOOLKIT_ACTION;
 				case ITM_USE_HACK_DEVICE: return USE_HACK_DEVICE_ACTION;
+				case ITM_USE_EXTENDED_MEMORY: return USE_EXTENDED_MEMORY;
+				case ITM_USE_DOUBLE_LASER: return USE_DOUBLE_LASER;
 				case ITM_SWITCH_TO_DESIGN_MODE: return TO_DESIGN_MODE;
 				case ITM_EXIT_PLAY: return EXIT;
 				default: return EMPTY;

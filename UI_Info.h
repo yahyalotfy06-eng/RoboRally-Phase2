@@ -48,7 +48,7 @@ enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
 	// Note: Items are ordered here as they appear in menu
 	// If you want to change the menu items order, change the order here
 
-	ITM_EXECUTE_COMMANDS,
+	ITM_EXECUTE_COMMANDS = 0,
 	ITM_SELECT_COMMAND,
 	ITM_SWITCH_TO_DESIGN_MODE,
 
@@ -56,6 +56,8 @@ enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
 	ITM_NEW_GAME,
 	ITM_USE_TOOLKIT,
 	ITM_USE_HACK_DEVICE,
+	ITM_USE_EXTENDED_MEMORY,
+	ITM_USE_DOUBLE_LASER,
 	ITM_EXIT_PLAY,		//end of added items
 
 	PLAY_ITM_COUNT		// no. of items ==> This should be the last line in this enum

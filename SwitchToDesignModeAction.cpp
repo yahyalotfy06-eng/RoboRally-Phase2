@@ -22,10 +22,13 @@ void SwitchToDesignModeAction::Execute() {
   // 2. Redraw the toolbar with Design Mode buttons
   pOut->CreateDesignModeToolBar(); // updates toolbar
 
-  // 3. Update the full interface so the grid is redrawn
-  pManager->UpdateInterface();
+  // 3. Cleanup when leaving Play Mode
+  pOut->ClearStatusBar();
+  pOut->ClearCommandsBar();
+  pManager->GetGameState()->ResetGame(pGrid);
 
-  /// TODO: Add any cleanup needed when leaving Play Mode.
+  // 4. Update the full interface so the grid is redrawn
+  pManager->UpdateInterface();
 }
 
 SwitchToDesignModeAction::~SwitchToDesignModeAction() {}

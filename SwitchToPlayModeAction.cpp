@@ -23,6 +23,7 @@ void SwitchToPlayModeAction::Execute() {
 
   // 2. Redraw the toolbar with Play Mode buttons
   pOut->CreatePlayModeToolBar();
+  pOut->ClearStatusBar();
 
   // 3. Reset game state for the new play session ----shahd
   pState->ResetGame(pGrid);

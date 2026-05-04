@@ -111,7 +111,7 @@ Input *Output::CreateInput() const {
 
 //======================================================================================//
 //								Some Utility
-//Functions
+// Functions
 ////
 //======================================================================================//
 
@@ -190,7 +190,6 @@ void Output::DrawTriangle(int triangleCenterX, int triangleCenterY,
     y3 = triangleCenterY;
   }
 
-
   pWind->SetPen(BLACK, penWidth);
   pWind->SetBrush(triangleColor);
 
@@ -207,13 +206,12 @@ void Output::DrawImageInCell(const CellPosition &cellPos, string image,
   int x = GetCellStartX(cellPos) + (UI.CellWidth - width) / 2;
   int y = GetCellStartY(cellPos) + (UI.CellHeight - height) / 2;
 
-
   pWind->DrawImage(image, x, y, width, height);
 }
 
 //======================================================================================//
 //								Interface
-//Functions
+// Functions
 ////
 //======================================================================================//
 
@@ -266,10 +264,10 @@ void Output::CreateDesignModeToolBar() const {
   MenuItemImages[ITM_SET_FLAG_CELL] = "images\\Menu_SetFlag.jpg";
   MenuItemImages[ITM_ADD_ANTENNA] = "images\\Menu_SetAntenna.jpg";
   MenuItemImages[ITM_ADD_BELT] = "images\\Menu_SetBelt.jpg";
-  MenuItemImages[ITM_ADD_WATER_PIT] = "images\\Menu_SetWaterPit.jpg";
+  MenuItemImages[ITM_ADD_WATER_PIT] = "images\\Menu_WaterPit.jpg";
   MenuItemImages[ITM_ADD_DANGER_ZONE] = "images\\Menu_SetDangerZone.jpg";
-  MenuItemImages[ITM_ADD_WORKSHOP] = "images\\Menu_SetWorkshop.jpg";
-  MenuItemImages[ITM_ADD_ROTATING_GEAR] = "images\\Menu_SetRotatingGear.jpg";
+  MenuItemImages[ITM_ADD_WORKSHOP] = "images\\Menu_Workshop.jpg";
+  MenuItemImages[ITM_ADD_ROTATING_GEAR] = "images\\Menu_RotatingGear.jpg";
   MenuItemImages[ITM_COPY] = "images\\Menu_Copy.jpg";
   MenuItemImages[ITM_CUT] = "images\\Menu_Cut.jpg";
   MenuItemImages[ITM_PASTE] = "images\\Menu_Paste.jpg";
@@ -310,10 +308,11 @@ void Output::CreatePlayModeToolBar() const {
   MenuItemImages[ITM_SELECT_COMMAND] = "images\\Menu_SelectCommand.jpg";
   MenuItemImages[ITM_REBOOT_REPAIR] = "images\\Menu_RebootRepair.jpg";
   MenuItemImages[ITM_NEW_GAME] = "images\\Menu_NewGame.jpg";
-  MenuItemImages[ITM_USE_TOOLKIT] = "images\\CommandSlot-grey.jpg";
-  MenuItemImages[ITM_USE_HACK_DEVICE] = "images\\CommandSlot-grey.jpg";
+  MenuItemImages[ITM_USE_TOOLKIT] = "images\\toolkit.jpg";
+  MenuItemImages[ITM_USE_HACK_DEVICE] = "images\\Hack.jpg";
+  MenuItemImages[ITM_USE_EXTENDED_MEMORY] = "images\\Extended_Memory.jpg";
+  MenuItemImages[ITM_USE_DOUBLE_LASER] = "images\\Double_Laser.jpg";
   MenuItemImages[ITM_EXIT_PLAY] = "images\\Menu_Exit.jpg";
-
 
   for (int i = 0; i < PLAY_ITM_COUNT; i++) {
     if (MenuItemImages[i] == "")
@@ -347,9 +346,9 @@ void Output::CreateCommandsBar(Command savedCommands[], int savedCommandsCount,
   CommandItemImages[MOVE_BACKWARD_THREE_STEPS] =
       "images\\MoveBackwardThreeCard.jpg";
 
-  CommandItemImages[ROTATE_CLOCKWISE] = "images\\RotateCounterClockwiseCard.jpg";
+  CommandItemImages[ROTATE_CLOCKWISE] = "images\\RotateClockwiseCard.jpg";
   CommandItemImages[ROTATE_COUNTERCLOCKWISE] =
-      "images\\RotateClockwiseCard.jpg";
+      "images\\RotateCounterClockwiseCard.jpg";
 
   DrawSavedCommands(savedCommands, savedCommandsCount, CommandItemImages);
   DrawAvailableCommands(availableCommands, availableCommandsCount,
@@ -455,7 +454,7 @@ void Output::PrintPlayersInfo(string info) {
 
   /// current font
   //		(Use GetStringSize() window function) and set the "w" and "h"
-  //variables with its width and height
+  // variables with its width and height
   pWind->GetStringSize(w, h, info);
 
   // Prevent overlap with icons
@@ -515,7 +514,7 @@ void Output::DrawCell(const CellPosition &cellPos, color cellColor) const {
   /// current font
   //       (Use GetIntegerSize() window function) and set the "w" and "h"
   //       variables with its width and height
-  
+
   pWind->GetIntegerSize(w, h, cellNum);
 
   // Calculate X & Y coordinate of the start point of writing the card number
@@ -528,7 +527,6 @@ void Output::DrawCell(const CellPosition &cellPos, color cellColor) const {
           (UI.CellHeight - h - 1); // space 1 from the end of the cell height
                                    // ( - w ) because y is for the start point
                                    // of cell num (num's upper corner)
-
 
   pWind->DrawInteger(x, y, cellNum);
 }

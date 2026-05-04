@@ -27,6 +27,7 @@
 /// TODO: Add #include for all action types
 
 #include "GameState.h"
+#include "Player.h"
 
 ApplicationManager::ApplicationManager() {
   // Creation order matters:
@@ -78,6 +79,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
   Action *pAct = NULL;
 
   // According to Action Type, create the corresponding action object
+  Player* pPlayer = pGameState->GetCurrentPlayer();
+
   switch (ActType) {
   case ADD_ANTENNA:
     pAct = new AddAntennaAction(this);
@@ -100,7 +103,8 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
     break;
 
   case EXIT:
-    break;
+	  pOut->PrintMessage("Exiting... Click anywhere to close.");
+	  break;
 
   case ADD_WATER_PIT:
     pAct = new AddWaterPitAction(this);
@@ -170,7 +174,20 @@ void ApplicationManager::ExecuteAction(ActionType ActType) {
   case USE_HACK_DEVICE_ACTION:
     pAct = new UseHackDeviceAction(this);
     break;
-
+  case USE_EXTENDED_MEMORY:
+	  if (pPlayer->HasExtendedMemory()) {
+		  pOut->PrintMessage("Extended Memory is active! You can now select 6 commands.");
+	  } else {
+		  pOut->PrintMessage("You don't own Extended Memory! Visit a Workshop to purchase it.");
+	  }
+	  break;
+  case USE_DOUBLE_LASER:
+	  if (pPlayer->GetLaserDamage() == 2) {
+		  pOut->PrintMessage("Double Laser is equipped! You deal 2 damage points per hit.");
+	  } else {
+		  pOut->PrintMessage("You don't own a Double Laser! Visit a Workshop to purchase it.");
+	  }
+	  break;
   case STATUS: // a click on the status bar ==> no action
     return;
   }
