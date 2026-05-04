@@ -13,6 +13,7 @@ Player::Player(Cell *pCell, int playerNum)
   hasHackDevice = false;
   laserDamage = 1;
   isHacked = false;
+  isRebooting = false;
 
   // Initialise saved commands to NO_COMMAND
   for (int i = 0; i < MaxSavedCommands; i++)
@@ -49,6 +50,8 @@ void Player::SetLaserDamage(int damage) { laserDamage = damage; }
 int Player::GetLaserDamage() const { return laserDamage; }
 void Player::SetHacked(bool value) { isHacked = value; }
 bool Player::IsHacked() const { return isHacked; }
+void Player::SetRebooting(bool value) { isRebooting = value; }
+bool Player::IsRebooting() const { return isRebooting; }
 
 // ====== Saved Commands ======
 
@@ -104,24 +107,32 @@ void Player::ClearDrawing(Output *pOut) const {
 
 void Player::ResetPlayer(Grid *pGrid) // shahd
 {
-  // Reset player to start cell
+  Output *pOut = pGrid->GetOutput();
+
+  // 1- Erase token from its current position before moving
+  ClearDrawing(pOut);
+
+  // 2- Reset player to start cell
   Cell *pStartCell = pGrid->GetStartCell();
   SetCell(pStartCell);
 
-  // Reset health to 10
+  // 3- Reset health to 10
   SetHealth(10);
 
-  // Reset direction to RIGHT
+  // 4- Reset direction to RIGHT
   SetDirection(RIGHT);
 
-  // Clear commands
+  // 5- Clear commands and consumables
   ClearSavedCommands();
-  
   hasExtendedMemory = false;
   hasToolkit = false;
   hasHackDevice = false;
   laserDamage = 1;
   isHacked = false;
+  isRebooting = false;
+
+  // 6- Redraw token at the start cell
+  Draw(pOut);
 }
 
 // ====== Game Logic ======

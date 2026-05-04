@@ -2,6 +2,7 @@
 #include "GameState.h"
 #include "Grid.h"
 #include "Output.h"
+#include "Antenna.h"
 #include <cstdlib>
 #include <ctime>
 
@@ -15,6 +16,7 @@ void SwitchToPlayModeAction::ReadActionParameters() {
 void SwitchToPlayModeAction::Execute() {
   Output *pOut = pManager->GetGrid()->GetOutput();
   GameState *pState = pManager->GetGameState();
+  Grid *pGrid = pManager->GetGrid();
 
   // 1. Switch the global interface mode to Play Mode
   UI.InterfaceMode = MODE_PLAY;
@@ -23,9 +25,14 @@ void SwitchToPlayModeAction::Execute() {
   pOut->CreatePlayModeToolBar();
 
   // 3. Reset game state for the new play session ----shahd
-  Grid *pGrid = pManager->GetGrid(); // get grid obj to know
   pState->ResetGame(pGrid);
   // the todo is to reset the game
+
+  // === Initial Turn Order Calculation ===
+  Antenna *pAntenna = pGrid->GetAntenna();
+  if (pAntenna) {
+    pAntenna->Apply(pGrid, pState, pState->GetCurrentPlayer());
+  }
 
   // === Generate Random Commands in the Commands Bar ===
   srand((unsigned int)time(NULL));
@@ -33,8 +40,6 @@ void SwitchToPlayModeAction::Execute() {
 
   // 4. Redraw the full interface (board + player info bar + commands bar)
   pManager->UpdateInterface();
-
-  /// TODO: Add any other initialisation needed when entering Play Mode.
 }
 
 SwitchToPlayModeAction::~SwitchToPlayModeAction() {}

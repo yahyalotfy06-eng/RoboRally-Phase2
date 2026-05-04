@@ -26,6 +26,11 @@ void SelectCommandAction::Execute() {
     return;
   }
 
+  if (pPlayer->IsRebooting()) {
+    pOut->PrintMessage("You are rebooting this round and cannot select commands!");
+    return;
+  }
+
   int maxCommands = pPlayer->HasExtendedMemory() ? 6 : 5;
   if (pPlayer->GetSavedCommandCount() >= maxCommands) {
     pOut->PrintMessage(

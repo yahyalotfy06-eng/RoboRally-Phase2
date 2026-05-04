@@ -4,6 +4,8 @@
 #include "UI_Info.h"
 
 
+#include <string>
+
 // Forward declarations (includes are in GameState.cpp)
 class Grid;
 class Player;
@@ -24,6 +26,9 @@ class Output;
 // ============================================================
 class GameState {
   Player *PlayerList[MaxPlayerCount]; // Owns all Player objects
+
+  int playerOrder[MaxPlayerCount]; // The order in which players take their turns
+  int currentOrderIndex;           // Index into playerOrder (0..MaxPlayerCount-1)
 
   int currPlayerNumber; // index of the player whose turn it is
                         // (0..MaxPlayerCount-1)
@@ -51,17 +56,15 @@ public:
 
   // ========== Turn Management ==========
 
-  void AdvanceCurrentPlayer(); // Moves to the next player (cycles: 0 -> 1 ->
-                               // ... -> 0)
+  void AdvanceCurrentPlayer(); // Moves to the next player in playerOrder
+  int GetCurrentOrderIndex() const;
 
-  // SetFirstPlayer: tells the GameState which player goes first this round.
+  // SetPlayerOrder: tells the GameState the order players go this round.
   // Called by Antenna::Apply() after it computes distances.
-  // The remaining players follow in ascending index order.
-  //
-  // Example (2 players): SetFirstPlayer(1) --> turn order is [1, 0]
-  //
-  // [OPTIONAL] For 3+ players with full sorting, replace this with
-  //            SetPlayerOrder(int sortedOrder[], int count).
+  void SetPlayerOrder(const int order[]);
+
+  // SetFirstPlayer: legacy support or for simple cases.
+  // Sets playerOrder to [playerNum, (playerNum+1)%N, ...]
   void SetFirstPlayer(int playerNum);
 
   // ========== Phase Management ==========
@@ -98,5 +101,5 @@ public:
 
   void DrawAllPlayers(Output *pOut) const; // Draw every player's token
   void
-  AppendPlayersInfo(string &info) const; // Build the play-mode status string
+  AppendPlayersInfo(std::string &info) const; // Build the play-mode status string
 };

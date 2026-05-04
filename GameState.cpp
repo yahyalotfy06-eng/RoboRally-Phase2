@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include "Output.h"
 #include "Player.h"
+#include <string>
 
 GameState::GameState(Grid *pGrid) {
   // Create all Player objects starting at the board's designated start cell.
@@ -15,9 +16,11 @@ GameState::GameState(Grid *pGrid) {
   for (int i = 0; i < MaxPlayerCount; i++) {
     PlayerList[i] = new Player(startCell, i);
     PlayerList[i]->Draw(pOut); // draw initial position
+    playerOrder[i] = i;        // Default order: 0, 1, 2, 3
   }
 
-  currPlayerNumber = 0; // Player 0 goes first by default
+  currentOrderIndex = 0;
+  currPlayerNumber = playerOrder[currentOrderIndex]; 
   currentPhase = PHASE_MOVEMENT;
   endGame = false;
   availableCommandsCount = 0; // No available commands until Play Mode starts
@@ -31,13 +34,10 @@ GameState::~GameState() {
 // ========== Player Access ==========
 
 Player *GameState::GetCurrentPlayer() const {
-  /// TODO: Return the player whose turn it is
   return PlayerList[currPlayerNumber];
 }
 
 Player *GameState::GetPlayer(int playerNum) const {
-  /// TODO: Return the player with the given player number
-
   if (playerNum >= 0 && playerNum < MaxPlayerCount) {
     return PlayerList[playerNum];
   }
@@ -47,13 +47,28 @@ Player *GameState::GetPlayer(int playerNum) const {
 // ========== Turn Management ==========
 
 void GameState::AdvanceCurrentPlayer() {
-  currPlayerNumber = (currPlayerNumber + 1) % MaxPlayerCount;
+  currentOrderIndex = (currentOrderIndex + 1) % MaxPlayerCount;
+  currPlayerNumber = playerOrder[currentOrderIndex];
+}
+
+int GameState::GetCurrentOrderIndex() const { return currentOrderIndex; }
+
+void GameState::SetPlayerOrder(const int order[]) {
+  for (int i = 0; i < MaxPlayerCount; i++) {
+    playerOrder[i] = order[i];
+  }
+  currentOrderIndex = 0;
+  currPlayerNumber = playerOrder[currentOrderIndex];
 }
 
 void GameState::SetFirstPlayer(int playerNum) {
-  /// TODO: Implement this function to set which player goes first this round
-  if (playerNum >= 0 && playerNum < MaxPlayerCount)
-    currPlayerNumber = playerNum;
+  if (playerNum >= 0 && playerNum < MaxPlayerCount) {
+    for (int i = 0; i < MaxPlayerCount; i++) {
+      playerOrder[i] = (playerNum + i) % MaxPlayerCount;
+    }
+    currentOrderIndex = 0;
+    currPlayerNumber = playerOrder[currentOrderIndex];
+  }
 }
 
 // ========== Phase Management ==========
@@ -134,15 +149,17 @@ bool GameState::GetEndGame() const { return endGame; }
 
 void GameState::SetEndGame(bool end) { endGame = end; }
 
-// ========== Drawing Helpers ==========
+// ========== End-Game ==========
 
 void GameState::ResetGame(Grid *pGrid) // shahd
 {
   for (int i = 0; i < MaxPlayerCount; i++) {
     PlayerList[i]->ResetPlayer(pGrid);
+    playerOrder[i] = i;
   }
 
-  currPlayerNumber = 0;
+  currentOrderIndex = 0;
+  currPlayerNumber = playerOrder[currentOrderIndex];
 
   currentPhase = PHASE_MOVEMENT;
 

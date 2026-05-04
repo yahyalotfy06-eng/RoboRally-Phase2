@@ -1,7 +1,11 @@
 #include "Antenna.h"
 #include "GameState.h"
+#include "Grid.h"
 #include "Player.h"
 #include <cmath>
+#include <string>
+
+using namespace std;
 
 Antenna::Antenna(const CellPosition &antennaPosition)
     : GameObject(antennaPosition) {}
@@ -23,54 +27,50 @@ void Antenna::Draw(Output *pOut) const { pOut->DrawAntenna(position); }
 
 void Antenna::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {
 
-  /// TODO: Implement this function as mentioned in the guideline steps
-  /// (numbered below) below
-
-  // == Here are some guideline steps (numbered below) to implement this
-  // function ==
-
-  // 1- Print a message "the antenna will decide the turn of players. Click to
-  // continue ..." and wait mouse click
-
-  // 2- Determine turn order based on each player's distance from the antenna.
-  //    Hint: distance = |dV| + |dH|
-  //    The player closest to the antenna plays first. Ties are broken by player
-  //    number. Use pState to update the turn order accordingly.
-  // 3- Print a message indicating which player will play first
-
-  pGrid->PrintErrorMessage("The antenna will decide the turn of players. Click "
-                           "to continue ..."); // step 1-----yahya
+  pGrid->PrintErrorMessage("The antenna will decide the turn of players. Click to continue ...");
 
   CellPosition antennaPos = this->GetPosition();
 
-  int bestPlayer = -1;
-  int bestDistance = 999999;
+  struct PlayerDistance {
+    int playerNum;
+    int distance;
+  };
+
+  PlayerDistance distances[MaxPlayerCount];
 
   for (int i = 0; i < MaxPlayerCount; i++) {
     Player *p = pState->GetPlayer(i);
     CellPosition playerPos = p->GetCell()->GetCellPosition();
 
+    // Manhattan distance: |dV| + |dH|
     int dV = abs(playerPos.VCell() - antennaPos.VCell());
     int dH = abs(playerPos.HCell() - antennaPos.HCell());
+    
+    distances[i].playerNum = i;
+    distances[i].distance = dV + dH;
+  }
 
-    int distance = dV + dH;
-
-    if (distance < bestDistance ||
-        (distance == bestDistance &&
-         i < bestPlayer)) // tie-break: lower player number goes first
-    {
-      bestDistance = distance;
-      bestPlayer = i;
+  // Sort players by distance, then by player number (tie-breaker)
+  // Using a simple Bubble Sort for MaxPlayerCount (4)
+  for (int i = 0; i < MaxPlayerCount - 1; i++) {
+    for (int j = 0; j < MaxPlayerCount - i - 1; j++) {
+      if (distances[j].distance > distances[j+1].distance || 
+         (distances[j].distance == distances[j+1].distance && distances[j].playerNum > distances[j+1].playerNum)) {
+        PlayerDistance temp = distances[j];
+        distances[j] = distances[j+1];
+        distances[j+1] = temp;
+      }
     }
   }
 
-  pState->SetFirstPlayer(bestPlayer); // step 2-----yahya
+  int order[MaxPlayerCount];
+  for (int i = 0; i < MaxPlayerCount; i++) {
+    order[i] = distances[i].playerNum;
+  }
 
-  pGrid->PrintErrorMessage("Player " + to_string(bestPlayer) +
-                           " will play first!"); // step 3-----yahya
+  pState->SetPlayerOrder(order);
+
+  pGrid->PrintErrorMessage("Player " + to_string(order[0]) + " will play first!");
 }
 
 Antenna::~Antenna() {}
-
-
-

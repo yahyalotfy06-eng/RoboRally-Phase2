@@ -3,6 +3,8 @@
 #include "GameState.h"
 #include "Grid.h"
 #include "Player.h"
+#include "Antenna.h"
+#include <string>
 
 ExecuteCommandAction::ExecuteCommandAction(ApplicationManager *pApp)
     : Action(pApp) {}
@@ -25,21 +27,38 @@ void ExecuteCommandAction::Execute() {
     if (pPlayer->IsHacked()) {
       pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) + " is hacked and will skip this round! Click to continue...");
       pPlayer->SetHacked(false);
+    } else if (pPlayer->IsRebooting()) {
+      pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) + " is rebooting and will skip movement this round! Click to continue...");
+      pPlayer->SetRebooting(false);
     } else {
       pPlayer->Move(pGrid, pGameState);
     }
     pPlayer->ClearSavedCommands();
   }
 
-  // Trigger Shooting Phase after movement
-  if (!pGameState->GetEndGame()) {
-    pGameState->ExecuteShootingPhase(pGrid);
-  }
-
   if (!pGameState->GetEndGame()) {
     pGameState->AdvanceCurrentPlayer();
-    pGameState->GenerateAvailableCommands();
-    pGrid->UpdateInterface(pGameState);
+
+    // When the order index resets to 0, a full round has just ended.
+    // This is when we run the shooting phase (once per round), then
+    // recalculate the antenna turn order for the next round.
+    if (pGameState->GetCurrentOrderIndex() == 0) {
+      // --- Shooting Phase (fires once per round, after all movement) ---
+      pGameState->ExecuteShootingPhase(pGrid);
+
+      if (!pGameState->GetEndGame()) {
+        // --- Antenna recalculates turn order for the next round ---
+        Antenna *pAntenna = pGrid->GetAntenna();
+        if (pAntenna) {
+          pAntenna->Apply(pGrid, pGameState, pGameState->GetCurrentPlayer());
+        }
+      }
+    }
+
+    if (!pGameState->GetEndGame()) {
+      pGameState->GenerateAvailableCommands();
+      pGrid->UpdateInterface(pGameState);
+    }
   }
 }
 

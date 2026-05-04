@@ -308,7 +308,6 @@ void Output::CreatePlayModeToolBar() const {
   MenuItemImages[ITM_SWITCH_TO_DESIGN_MODE] = "images\\Menu_SwitchToGrid.jpg";
   MenuItemImages[ITM_EXECUTE_COMMANDS] = "images\\Menu_Execute.jpg";
   MenuItemImages[ITM_SELECT_COMMAND] = "images\\Menu_SelectCommand.jpg";
-  MenuItemImages[ITM_SET_TURN] = "images\\Menu_SetTurn.jpg";
   MenuItemImages[ITM_REBOOT_REPAIR] = "images\\Menu_RebootRepair.jpg";
   MenuItemImages[ITM_NEW_GAME] = "images\\Menu_NewGame.jpg";
   MenuItemImages[ITM_USE_TOOLKIT] = "images\\CommandSlot-grey.jpg";

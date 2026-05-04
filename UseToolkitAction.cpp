@@ -20,9 +20,11 @@ void UseToolkitAction::Execute() {
 	if (!pPlayer) return;
 
 	if (pPlayer->HasToolkit()) {
-		pPlayer->SetHealth(10); // user requested toolkit should only repair the robot to max
+		// Toolkit repairs the robot by 1 HP (same as visiting a Workshop for repair)
+		int newHp = pPlayer->GetHealth() + 1;
+		pPlayer->SetHealth(newHp); // SetHealth already clamps to max 10
 		pPlayer->SetToolkit(false);
-		pGrid->PrintErrorMessage("Toolkit used! Player fully repaired. Click to continue...");
+		pGrid->PrintErrorMessage("Toolkit used! Player repaired +1 HP. Click to continue...");
 		pGrid->UpdateInterface(pState);
 	} else {
 		pGrid->PrintErrorMessage("You don't own a Toolkit! Click to continue...");

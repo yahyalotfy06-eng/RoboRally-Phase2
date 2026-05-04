@@ -9,9 +9,8 @@ class AddAntennaAction : public Action {
 
   CellPosition antennaPosition;
 
-  static bool isAntennaAdded;
-
 public:
+  static bool isAntennaAdded;
   AddAntennaAction(ApplicationManager *pApp);
 
   virtual void ReadActionParameters();

@@ -47,6 +47,9 @@ void DangerZone::Apply(Grid* pGrid, GameState* pState, Player* pPlayer)
 		pState->SetEndGame(true);
 	}
 
+	// Redraw the player to reflect updated state
+	pPlayer->Draw(pGrid->GetOutput());
+
 	// 3- Update the players info which is displayed (check Grid class and decide which function to use)
 	pGrid->UpdateInterface(pState);
 }

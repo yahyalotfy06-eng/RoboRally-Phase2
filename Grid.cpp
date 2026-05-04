@@ -4,6 +4,7 @@
 #include "GameObject.h"
 #include "GameState.h"
 #include "Player.h"
+#include "Antenna.h"
 
 Grid::Grid(Input *pIn, Output *pOut) : pIn(pIn), pOut(pOut) {
   // Allocate every Cell on the board (bottom-up so cell numbers are assigned
@@ -21,6 +22,16 @@ void Grid::saveAll(ofstream &OutFile, GameObjectType type) { // shahd
       GameObject *pObject = CellList[i][j]->GetGameObject();
       if (pObject != nullptr) {
         pObject->Save(OutFile, type); // save is called depend on obj type
+      }
+    }
+  }
+}
+
+void Grid::ClearGrid() {
+  for (int i = 0; i < NumVerticalCells; i++) {
+    for (int j = 0; j < NumHorizontalCells; j++) {
+      if (CellList[i][j]->GetGameObject() != nullptr) {
+        RemoveObjectFromCell(CellPosition(i, j));
       }
     }
   }
@@ -115,18 +126,14 @@ void Grid::UpdatePlayerCell(Player *player, const CellPosition &newPosition) {
 }
 
 Belt *Grid::GetNextBelt(const CellPosition &position) {
-  int startH = position.HCell(); // represents the start hCell in the current
-                                 // row to search for the belt in
-  for (int i = position.VCell(); i >= 0;
-       i--) // searching from position.vCell and ABOVE
-  {
-    for (int j = startH; j < NumHorizontalCells;
-         j++) // searching from startH and RIGHT
-    {
-      /// TODO: Check if CellList[i][j] has a belt, if yes return it
+  int startH = position.HCell();
+  for (int i = position.VCell(); i >= 0; i--) {
+    for (int j = startH; j < NumHorizontalCells; j++) {
+      Belt *b = dynamic_cast<Belt *>(CellList[i][j]->GetGameObject());
+      if (b)
+        return b;
     }
-    startH = 0; // because in the next above rows, we will search from the first
-                // left cell (hCell = 0) to the right
+    startH = 0; // next rows start from leftmost column
   }
   return NULL; // not found
 }
@@ -147,6 +154,17 @@ GameObject *Grid::GetClipboard() const {
 Cell *Grid::GetStartCell() const {
   // Players start at the bottom-left cell of the board
   return CellList[NumVerticalCells - 1][0];
+}
+
+Antenna *Grid::GetAntenna() const {
+  for (int i = 0; i < NumVerticalCells; i++) {
+    for (int j = 0; j < NumHorizontalCells; j++) {
+      Antenna *pAntenna = CellList[i][j]->HasAntenna();
+      if (pAntenna)
+        return pAntenna;
+    }
+  }
+  return nullptr;
 }
 Cell *Grid::GetCell(const CellPosition &pos) const {
   if (!pos.IsValidCell())

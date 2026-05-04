@@ -52,8 +52,7 @@ enum PLAY_MODE_ITEMS // The items of the Play Mode (you should add more items)
 	ITM_SELECT_COMMAND,
 	ITM_SWITCH_TO_DESIGN_MODE,
 
-	ITM_SET_TURN,		//start of added items
-	ITM_REBOOT_REPAIR,
+	ITM_REBOOT_REPAIR, //start of added items
 	ITM_NEW_GAME,
 	ITM_USE_TOOLKIT,
 	ITM_USE_HACK_DEVICE,

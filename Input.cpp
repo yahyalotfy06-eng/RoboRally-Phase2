@@ -135,7 +135,6 @@ ActionType Input::GetUserAction() const
 			int clickedItemOrder = (x / UI.MenuItemWidth);
 			switch (clickedItemOrder)
 			{
-				case ITM_SET_TURN: return SET_TURN;
 				case ITM_EXECUTE_COMMANDS: return EXECUTE_COMMANDS;
 				case ITM_SELECT_COMMAND: return SELECT_COMMAND;
 				case ITM_REBOOT_REPAIR: return REBOOT_REPAIR;

@@ -36,8 +36,7 @@ enum ActionType // The actions supported (add more as needed)
 	TO_DESIGN_MODE,	// Go to Design Mode
 
 	///TODO: Add more action types of Play Mode
-	SET_TURN,	//start of added items
-	REBOOT_REPAIR,
+	REBOOT_REPAIR, //start of added items
 	USE_TOOLKIT_ACTION,
 	USE_HACK_DEVICE_ACTION,
 

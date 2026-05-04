@@ -27,7 +27,8 @@ class Player
 	// Uncomment when adding the shooting phase (see DEFS.h PhaseType):
 	int laserDamage; // damage per shot (default = 1; double-laser consumable = 2)
 	bool isHacked;   // true = this player skips their turn this round
-
+	bool isRebooting; // true = this player skips movement this round due to reboot
+	
 	// ---- [OPTIONAL BONUS] Workshop Consumables data members ----
 	// Uncomment when adding consumables (see Workshop.h):
 	bool hasExtendedMemory;
@@ -61,6 +62,8 @@ public:
 	int GetLaserDamage() const;
 	void SetHacked(bool value);
 	bool IsHacked() const;
+	void SetRebooting(bool value);
+	bool IsRebooting() const;
 
 	// ====== Saved Commands ======
 

@@ -15,6 +15,7 @@ class GameObject;
 class Player;
 class Belt;
 class GameState;
+class Antenna;
 
 // ============================================================
 // Grid: the game board.
@@ -57,6 +58,8 @@ public:
 
   void saveAll(ofstream &OutFile, GameObjectType type); // shahd
 
+  void ClearGrid(); // Clears all game objects from the board
+
   void UpdatePlayerCell(
       Player *player,
       const CellPosition
@@ -80,6 +83,8 @@ public:
   // Returns the Cell where all players start (bottom-left corner of the board).
   // Called by GameState's constructor to initialise player positions.
   Cell *GetStartCell() const;
+
+  Antenna *GetAntenna() const;
 
   /// TODO: Add any additional board-query getters here (e.g.
   /// GetCell(CellPosition))

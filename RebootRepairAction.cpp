@@ -25,35 +25,20 @@ void RebootRepairAction::Execute() {
 
   // Step 1: Inform the player
   pGrid->PrintErrorMessage(
-      "Rebooting player... You lose 1 HP. Click to continue ...");
+      "Rebooting & Repairing... Your health is restored. You will skip movement this round. Click to continue ...");
 
-  // Step 2: Reduce health by 1
-  int newHealth = pPlayer->GetHealth() - 1;
-  pPlayer->SetHealth(newHealth);
-
-  // Step 3: If health reached zero, the player is dead — game over
-  if (pPlayer->GetHealth() == 0) {
-    pGrid->PrintErrorMessage("Player has no health left after reboot! Game "
-                             "over. Click to continue ...");
-    pState->SetEndGame(true);
-    pGrid->UpdateInterface(pState);
-    return;
+  // Step 2: Restore health points (add 1 HP)
+  int currentHealth = pPlayer->GetHealth();
+  if (currentHealth < 10) {
+    pPlayer->SetHealth(currentHealth + 1);
   }
 
-  // Step 4: Move the player back to the start cell
-  pGrid->UpdatePlayerCell(pPlayer, pGrid->GetStartCell()->GetCellPosition());
-
-  // Step 5: Reset direction to RIGHT
-  pPlayer->SetDirection(RIGHT);
-
-  // Step 6: Clear any saved commands (the "repair" part)
+  // Step 3: Prevent moving this round
   pPlayer->ClearSavedCommands();
+  pPlayer->SetRebooting(true);
 
-  // Step 7: Refresh the UI
+  // Step 4: Refresh the UI
   pGrid->UpdateInterface(pState);
-
-  pGrid->PrintErrorMessage(
-      "Reboot complete! Player returned to start. Click to continue ...");
 }
 
 RebootRepairAction::~RebootRepairAction() {}
