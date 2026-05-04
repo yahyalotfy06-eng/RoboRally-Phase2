@@ -71,6 +71,7 @@ public:
   // Returns the first Belt found at or after 'position' (used when adding
   // connected belts).
   Belt *GetNextBelt(const CellPosition &position);
+  bool IsCellOccupiedByBelt(const CellPosition &pos);
 
   // ========== Setters / Getters ==========
 

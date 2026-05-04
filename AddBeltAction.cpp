@@ -83,9 +83,7 @@ void AddBeltAction::Execute()
 	{
 		CellPosition pos(v, h);
 
-		Belt* existing = pGrid->GetNextBelt(pos);
-
-		if (existing)
+		if (pGrid->IsCellOccupiedByBelt(pos))
 		{
 			pGrid->PrintErrorMessage("Error: A belt already occupies this cell!");
 			return;

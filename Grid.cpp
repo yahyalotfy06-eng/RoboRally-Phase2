@@ -65,12 +65,16 @@ bool Grid::AddObjectToCell(GameObject *pNewObject) {
 
     // 🔴 CHECK ALL CELLS FIRST
     while (true) {
+      CellPosition pos(v, h);
+      
+      // If ANY belt occupies this cell, return false
+      if (IsCellOccupiedByBelt(pos))
+        return false;
+
+      // Also check if any non-belt object occupies the cells
       GameObject* pObj = CellList[v][h]->GetGameObject();
-      if (pObj != nullptr) {
-        Belt* pExistingBelt = dynamic_cast<Belt*>(pObj);
-        if (!pExistingBelt)
-          return false;
-      }
+      if (pObj != nullptr)
+        return false;
 
       if (h == endH && v == endV)
         break;
@@ -136,6 +140,41 @@ Belt *Grid::GetNextBelt(const CellPosition &position) {
     startH = 0; // next rows start from leftmost column
   }
   return NULL; // not found
+}
+
+bool Grid::IsCellOccupiedByBelt(const CellPosition &pos) {
+  if (!pos.IsValidCell())
+    return false;
+
+  // Iterate through ALL cells to find belts
+  for (int i = 0; i < NumVerticalCells; i++) {
+    for (int j = 0; j < NumHorizontalCells; j++) {
+      GameObject *pObj = CellList[i][j]->GetGameObject();
+      Belt *pBelt = dynamic_cast<Belt *>(pObj);
+      if (pBelt) {
+        CellPosition start = pBelt->GetPosition();
+        CellPosition end = pBelt->GetEndPosition();
+
+        int sH = start.HCell(), sV = start.VCell();
+        int eH = end.HCell(), eV = end.VCell();
+        int pH = pos.HCell(), pV = pos.VCell();
+
+        // Check if pH, pV is between start and end
+        if (sH == eH && pH == sH) { // Vertical belt
+          int minY = (sV < eV) ? sV : eV;
+          int maxY = (sV < eV) ? eV : sV;
+          if (pV >= minY && pV <= maxY)
+            return true;
+        } else if (sV == eV && pV == sV) { // Horizontal belt
+          int minX = (sH < eH) ? sH : eH;
+          int maxX = (sH < eH) ? eH : sH;
+          if (pH >= minX && pH <= maxX)
+            return true;
+        }
+      }
+    }
+  }
+  return false;
 }
 
 // ========== Setters / Getters ==========

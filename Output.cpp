@@ -580,9 +580,6 @@ void Output::DrawBelt(const CellPosition &fromCellPos,
   if (!fromCellPos.IsValidCell() || !toCellPos.IsValidCell())
     return;
 
-  if (fromCellPos.GetCellNum() == 1)
-    return;
-
   bool isHorizontal = (fromCellPos.VCell() == toCellPos.VCell());
   bool isVertical = (fromCellPos.HCell() == toCellPos.HCell());
 
@@ -596,11 +593,11 @@ void Output::DrawBelt(const CellPosition &fromCellPos,
   int toCellStartX = GetCellStartX(toCellPos);
   int toCellStartY = GetCellStartY(toCellPos);
 
-  int beltFromCellX = fromCellStartX + (UI.CellWidth / 2) + UI.BeltXOffset;
-  int beltToCellX = toCellStartX + UI.BeltXOffset;
+  int beltFromCellX = fromCellStartX + (UI.CellWidth / 2);
+  int beltToCellX = toCellStartX + (UI.CellWidth / 2);
 
-  int beltFromCellY = fromCellStartY + UI.BeltYOffset;
-  int beltToCellY = toCellStartY + UI.BeltYOffset;
+  int beltFromCellY = fromCellStartY + (UI.CellHeight / 2);
+  int beltToCellY = toCellStartY + (UI.CellHeight / 2);
 
   // pointing to the direction of the belt
 
