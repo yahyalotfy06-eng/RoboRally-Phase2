@@ -42,7 +42,7 @@ void Grid::ClearGrid() {
 bool Grid::AddObjectToCell(GameObject *pNewObject) {
   CellPosition start = pNewObject->GetPosition();
 
-  if (!start.IsValidCell())
+  if (!start.IsValidCell() || start.GetCellNum() == 1)
     return false;
 
   Belt *belt = dynamic_cast<Belt *>(pNewObject);
@@ -67,8 +67,8 @@ bool Grid::AddObjectToCell(GameObject *pNewObject) {
     while (true) {
       CellPosition pos(v, h);
       
-      // If ANY belt occupies this cell, return false
-      if (IsCellOccupiedByBelt(pos))
+      // If ANY belt occupies this cell, or it's cell 1, return false
+      if (IsCellOccupiedByBelt(pos) || pos.GetCellNum() == 1)
         return false;
 
       // Also check if any non-belt object occupies the cells
