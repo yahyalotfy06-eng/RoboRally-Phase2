@@ -1,9 +1,9 @@
 #include "ExecuteCommandAction.h"
 
+#include "Antenna.h"
 #include "GameState.h"
 #include "Grid.h"
 #include "Player.h"
-#include "Antenna.h"
 #include <string>
 
 ExecuteCommandAction::ExecuteCommandAction(ApplicationManager *pApp)
@@ -25,10 +25,14 @@ void ExecuteCommandAction::Execute() {
   Player *pPlayer = pGameState->GetCurrentPlayer();
   if (pPlayer) {
     if (pPlayer->IsHacked()) {
-      pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) + " is hacked and will skip this round! Click to continue...");
+      pGrid->PrintErrorMessage(
+          "Player " + to_string(pPlayer->GetPlayerNum()) +
+          " is hacked and will skip this round! Click to continue...");
       pPlayer->SetHacked(false);
     } else if (pPlayer->IsRebooting()) {
-      pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) + " is rebooting and will skip movement this round! Click to continue...");
+      pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) +
+                               " is rebooting and will skip movement this "
+                               "round! Click to continue...");
       pPlayer->SetRebooting(false);
     } else {
       pPlayer->Move(pGrid, pGameState);

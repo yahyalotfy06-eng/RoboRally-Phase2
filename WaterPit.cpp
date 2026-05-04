@@ -28,18 +28,24 @@ void WaterPit::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {
   // function ==
 
   // 1- Print a message indicating the player fell into the water pit.
-  pGrid->PrintErrorMessage("You fell in a water pit! You lose 3 HP and reboot. Click to continue ...");
+  pGrid->PrintErrorMessage("You fell in a water pit! You lose 3 HP and reset "
+                           "to start. Click to continue ...");
 
-  // 2- Apply the water pit's effect by reducing health by 3 and returning to start cell
+  // 2- Apply the water pit's effect by reducing health by 3 and returning to
+  // start cell
   int newHealth = pPlayer->GetHealth() - 3;
-  if (newHealth < 0) newHealth = 0;
+  if (newHealth < 0)
+    newHealth = 0;
   pPlayer->SetHealth(newHealth);
 
-  if (newHealth == 0) {
-    pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) + " drowned! Game over. Click to continue...");
+  if (newHealth <= 0) {
+    pGrid->PrintErrorMessage("Player " + to_string(pPlayer->GetPlayerNum()) +
+                             " drowned! Game over. Click to continue...");
     pState->SetEndGame(true);
   } else {
     pGrid->UpdatePlayerCell(pPlayer, pGrid->GetStartCell()->GetCellPosition());
+    // Stop the current execution loop immediately
+    pPlayer->ClearSavedCommands();
   }
 
   // 3- Update the players info which is displayed (check Grid class and decide
@@ -48,6 +54,3 @@ void WaterPit::Apply(Grid *pGrid, GameState *pState, Player *pPlayer) {
 }
 
 WaterPit::~WaterPit() {}
-
-
-
